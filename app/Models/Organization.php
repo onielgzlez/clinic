@@ -65,4 +65,8 @@ class Organization extends Model
             ->belongsToMany(Provider::class,'organization_providers')
             ->withTimestamps();
     }
+    
+    public function finances() {
+        return $this->hasMany(Finance::class);
+    }
 }
