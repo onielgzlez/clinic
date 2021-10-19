@@ -22,8 +22,6 @@ class CreateOrganizationsTable extends Migration
             $table->string('address')->nullable();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(City::class)->nullable();
-            $table->foreignIdFor(Region::class)->nullable();
-            $table->foreignIdFor(Country::class)->nullable();
             $table->integer('status');
             $table->timestamps();
             $table->softDeletes();

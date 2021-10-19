@@ -18,7 +18,18 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'second_name',
+        'last_name',
+        'last_name2',        
+        'document',        
+        'phone',        
+        'photo',        
+        'status',        
+        'type',        
+        'city_id',        
+        'area_job_id',        
+        'classificator_id',        
         'email',
         'password',
     ];
@@ -60,5 +71,70 @@ class User extends Authenticatable
     public function getShortNameAttribute()
     {
         return "{$this->first_name}";
+    }
+
+    public function roles() {
+        return $this
+            ->belongsToMany(Role::class,'user_roles')
+            ->withTimestamps();
+    }
+
+    public function authorizeRoles($roles) {
+        if ($this->hasAnyRole($roles)) {
+            return true;
+        }
+        abort(401, 'Esta acción no está autorizada.');
+    }
+
+    public function hasAnyRole($roles) {
+        if (is_array($roles)) {
+            foreach ($roles as $role) {
+                if ($this->hasRole($role)) {
+                    return true;
+                }
+            }
+        } else {
+            if ($this->hasRole($roles)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function hasRole($role) {
+        if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function organizations() {
+        return $this
+            ->belongsToMany(Organization::class,'organization_workers')
+            ->withTimestamps();
+    }
+
+    /**
+     * Get the city that owns the user.
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    /**
+     * Get the area job that owns the user.
+     */
+    public function area()
+    {
+        return $this->belongsTo(AreaJob::class);
+    }
+    
+    /**
+     * Get the area job that owns the user.
+     */
+    public function classificator()
+    {
+        return $this->belongsTo(Classificator::class);
     }
 }

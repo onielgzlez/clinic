@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\AreaJob;
 use App\Models\City;
+use App\Models\Classificator;
 
 class CreateUsersTable extends Migration
 {
@@ -31,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('type');
             $table->foreignIdFor(City::class)->nullable();
             $table->foreignIdFor(AreaJob::class)->nullable();
+            $table->foreignIdFor(Classificator::class)->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

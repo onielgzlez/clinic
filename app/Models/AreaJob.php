@@ -9,4 +9,22 @@ class AreaJob extends Model
 {
     use HasFactory;
     protected $table = "areas";
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
+    /**
+     * Get the workers that owns the area.
+     */
+    public function workers()
+    {
+        return $this->hasMany(User::class);
+    }
 }

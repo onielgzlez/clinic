@@ -3,8 +3,10 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Organization;
+use App\Models\User;
 
-class CreateRolesTable extends Migration
+class CreateOrganizationWorkersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +15,9 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->text('description')->nullable();
-            $table->softDeletes();
+        Schema::create('organization_workers', function (Blueprint $table) {         
+            $table->foreignIdFor(Organization::class);
+            $table->foreignIdFor(User::class);
         });
     }
 
@@ -28,6 +28,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('organization_workers');
     }
 }

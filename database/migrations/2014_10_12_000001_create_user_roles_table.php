@@ -16,7 +16,6 @@ class CreateUserRolesTable extends Migration
     public function up()
     {
         Schema::create('user_roles', function (Blueprint $table) {
-            $table->id();            
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Role::class);
         });
