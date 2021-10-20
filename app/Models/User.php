@@ -32,6 +32,12 @@ class User extends Authenticatable
         'classificator_id',        
         'email',
         'password',
+        'headerTheme',
+        'sideTheme',
+        'brandTheme',
+        'colorTheme',
+        'mobileTheme',
+        'desktopTheme',
     ];
 
     /**

@@ -28,6 +28,12 @@ class CreateUsersTable extends Migration
             $table->string('document')->nullable();
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();
+            $table->string('headerTheme')->nullable();
+            $table->string('sideTheme')->nullable();
+            $table->string('brandTheme')->nullable();
+            $table->string('colorTheme')->nullable();
+            $table->string('mobileTheme')->nullable();
+            $table->string('desktopTheme')->nullable();
             $table->integer('status');
             $table->string('type');
             $table->foreignIdFor(City::class)->nullable();
