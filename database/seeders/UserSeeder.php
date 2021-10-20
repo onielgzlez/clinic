@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             array('name'=>'Administrador clínica','desc'=>'Admin clinic'),
             array('name'=>'Doctor','desc'=>'Doctor'),
             array('name'=>'Secretaria','desc'=>'Secretaria'),
+            array('name'=>'Contadora','desc'=>'Contadora'),
         );
 
         for ($i = 0; $i < count($roles); $i++) { 

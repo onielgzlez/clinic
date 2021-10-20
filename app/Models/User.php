@@ -72,11 +72,22 @@ class User extends Authenticatable
     {
         return "{$this->first_name}";
     }
+    
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFirstLetterAttribute()
+    {
+        $n = $this->first_name[0];
+        $l = $this->last_name[0];
+        return "$n$l";
+    }
 
     public function roles() {
         return $this
-            ->belongsToMany(Role::class,'user_roles')
-            ->withTimestamps();
+            ->belongsToMany(Role::class,'user_roles');
     }
 
     public function authorizeRoles($roles) {
@@ -110,8 +121,7 @@ class User extends Authenticatable
 
     public function organizations() {
         return $this
-            ->belongsToMany(Organization::class,'organization_workers')
-            ->withTimestamps();
+            ->belongsToMany(Organization::class,'organization_workers');
     }
 
     /**

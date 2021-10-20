@@ -44,26 +44,22 @@ class Organization extends Model
 
     public function patients() {
         return $this
-            ->belongsToMany(Patient::class,'organization_patients')
-            ->withTimestamps();
+            ->belongsToMany(Patient::class,'organization_patients');
     }
     
     public function workers() {
         return $this
-            ->belongsToMany(User::class,'organization_workers')
-            ->withTimestamps();
+            ->belongsToMany(User::class,'organization_workers');
     }
     
     public function products() {
         return $this
-            ->belongsToMany(Product::class,'organization_products')
-            ->withTimestamps();
+            ->belongsToMany(Product::class,'organization_products');
     }
     
     public function providers() {
         return $this
-            ->belongsToMany(Provider::class,'organization_providers')
-            ->withTimestamps();
+            ->belongsToMany(Provider::class,'organization_providers');
     }
     
     public function finances() {

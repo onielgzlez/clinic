@@ -43,7 +43,6 @@ class Product extends Model
 
     public function organizations() {
         return $this
-            ->belongsToMany(Organization::class,'organization_products')
-            ->withTimestamps();
+            ->belongsToMany(Organization::class,'organization_products');
     }
 }

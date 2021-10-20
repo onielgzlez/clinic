@@ -39,7 +39,6 @@ class Provider extends Model
 
     public function organizations() {
         return $this
-            ->belongsToMany(Organization::class,'organization_providers')
-            ->withTimestamps();
+            ->belongsToMany(Organization::class,'organization_providers');
     }
 }
