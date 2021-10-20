@@ -1,5 +1,6 @@
 require('./bootstrap');
-
+require('alpinejs');
+/*
 import React from 'react';
 import { render } from 'react-dom';
 import { createInertiaApp } from '@inertiajs/inertia-react';
@@ -16,3 +17,4 @@ createInertiaApp({
 });
 
 InertiaProgress.init({ color: '#4B5563' });
+*/
