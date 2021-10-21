@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\OrganizationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+//use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,16 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/organizations', [OrganizationController::class, 'index'])
+                ->middleware('auth')
+                ->name('organizations');
+
+Route::post('/organizations', [OrganizationController::class, 'store'])
+                ->middleware('auth');
 Route::get('/test', function () {
     return view('pages.dashboard');
 })->middleware(['auth'])->name('dashboard');
+
 
 //disable react for Julio
 /*
