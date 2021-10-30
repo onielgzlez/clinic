@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" {{ Metronic::printAttrs('html') }} {{
     Metronic::printClasses('html') }}>
-
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Title Section --}}
@@ -12,7 +11,6 @@
 
     {{-- Meta Data --}}
     <meta name="description" content="@yield('title', $title ?? '')" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Fonts -->
     {{ Metronic::getGoogleFontsInclude() }}
@@ -51,12 +49,14 @@
     <script>
         var KTAppSettings = {!! json_encode(config('layout.js'), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES) !!};
     </script>
-
+    
     {{-- Global Theme JS Bundle (used by all pages) --}}
     @foreach(config('layout.resources.js') as $script)
     <script src="{{ asset($script) }}" type="text/javascript"></script>
     @endforeach
-
+    <script src="{{ route('translations') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- Includable JS --}}
     @yield('scripts')
 </body>

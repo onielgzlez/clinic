@@ -112,8 +112,8 @@ return [
 
     // Subheader
     'subheader' => [
-        'display' => false,
-        'displayDesc' => true,
+        'display' => true,
+        'displayDesc' => false,
         'layout' => 'subheader-v1',
         'fixed' => true,
         'width' => 'fluid', // fixed, fluid
@@ -211,7 +211,7 @@ return [
         // User
         'user' => [
             'display' => true,
-            'layout' => 'offcanvas', // offcanvas, dropdown
+            'layout' => 'dropdown', // offcanvas, dropdown
             'dropdown' => [
                 'style' => 'dark' // light|dark
             ],

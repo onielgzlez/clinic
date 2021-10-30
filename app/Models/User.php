@@ -21,15 +21,15 @@ class User extends Authenticatable
         'first_name',
         'second_name',
         'last_name',
-        'last_name2',        
-        'document',        
-        'phone',        
-        'photo',        
-        'status',        
-        'type',        
-        'city_id',        
-        'area_job_id',        
-        'classificator_id',        
+        'last_name2',
+        'document',
+        'phone',
+        'photo',
+        'status',
+        'type',
+        'city_id',
+        'area_job_id',
+        'classificator_id',
         'email',
         'password',
         'headerTheme',
@@ -38,6 +38,7 @@ class User extends Authenticatable
         'colorTheme',
         'mobileTheme',
         'desktopTheme',
+        'locale',
     ];
 
     /**
@@ -78,7 +79,7 @@ class User extends Authenticatable
     {
         return "{$this->first_name}";
     }
-    
+
     /**
      * Get the user's full name.
      *
@@ -91,19 +92,48 @@ class User extends Authenticatable
         return "$n$l";
     }
 
-    public function roles() {
+    public function roles()
+    {
         return $this
-            ->belongsToMany(Role::class,'user_roles');
+            ->belongsToMany(Role::class, 'user_roles');
     }
 
-    public function authorizeRoles($roles) {
+    public function getNameRolesAttribute()
+    {
+        $roles = $this->roles()->pluck('name')->all();
+        return join(', ', $roles);
+    }
+
+    public function getAvatarAttribute()
+    {
+        return $this->photo ?? 'media/users/default.jpg';
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('Administrador');
+    }
+
+    public function status()
+    {
+        return $this->status == 1 ? 'Activo' : ($this->status == 2 ? 'Pendiente' : 'Suspendido');
+    }
+
+    public function isAdminClinic()
+    {
+        return $this->hasRole('Administrador clínica');
+    }
+
+    public function authorizeRoles($roles)
+    {
         if ($this->hasAnyRole($roles)) {
             return true;
         }
         abort(401, 'Esta acción no está autorizada.');
     }
 
-    public function hasAnyRole($roles) {
+    public function hasAnyRole($roles)
+    {        
         if (is_array($roles)) {
             foreach ($roles as $role) {
                 if ($this->hasRole($role)) {
@@ -118,16 +148,18 @@ class User extends Authenticatable
         return false;
     }
 
-    public function hasRole($role) {
+    public function hasRole($role)
+    {
         if ($this->roles()->where('name', $role)->first()) {
             return true;
         }
         return false;
     }
 
-    public function organizations() {
+    public function organizations()
+    {
         return $this
-            ->belongsToMany(Organization::class,'organization_workers');
+            ->belongsToMany(Organization::class, 'organization_workers');
     }
 
     /**
@@ -145,7 +177,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(AreaJob::class);
     }
-    
+
     /**
      * Get the area job that owns the user.
      */

@@ -5,8 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Models\User;
 use App\Models\City;
-use App\Models\Region;
-use App\Models\Country;
 
 class CreateOrganizationsTable extends Migration
 {
@@ -18,11 +16,13 @@ class CreateOrganizationsTable extends Migration
             $table->string('slug')->unique();
             $table->string('modules_active')->nullable();
             $table->string('email')->nullable();
+            $table->string('photo')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(City::class)->nullable();
             $table->integer('status');
+            $table->integer('appointments_day');
             $table->timestamps();
             $table->softDeletes();
         });

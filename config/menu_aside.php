@@ -25,14 +25,15 @@ return [
         // Config
         [
             'section' => 'Configuración',
+            'role' => 'Administrador',
         ],
         [
             'title' => 'Usuarios',
             'icon' => 'flaticon-users-1',
             'page' => 'users',
-            'root' => true,           
+            'root' => false,
+            'role' => 'Administrador',
         ]
-       
     ]
 
 ];

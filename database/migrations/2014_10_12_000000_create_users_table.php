@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('document')->nullable();
+            $table->string('document')->unique();
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();
             $table->string('headerTheme')->nullable();
@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('colorTheme')->nullable();
             $table->string('mobileTheme')->nullable();
             $table->string('desktopTheme')->nullable();
+            $table->string('locale')->nullable();
             $table->integer('status');
             $table->string('type');
             $table->foreignIdFor(City::class)->nullable();

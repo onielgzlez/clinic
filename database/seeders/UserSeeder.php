@@ -51,5 +51,40 @@ class UserSeeder extends Seeder
             'user_id' => $userId,
             'role_id' => 1,
         ]);
+
+        foreach (range(2,25) as $i) {
+            $userId1 = DB::table('users')->insertGetId([
+                'first_name' => Str::random(10),
+                'last_name' => Str::random(10),
+                'last_name2' => Str::random(10),
+                'email' => Str::random(10).'@gmail.com',
+                'password' => Hash::make('medic2021'),
+                'email_verified_at' => now(),
+                'document' => Str::random(10),
+                'status' => rand(1,3),
+                'city_id' => rand(1,50),
+                'area_job_id' => rand(1,5),
+                'type' => 'worker',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            
+            DB::table('user_roles')->insert([
+                'user_id' => $userId1,
+                'role_id' => rand(2,4),
+            ]);
+
+            DB::table('organizations')->insert([
+                'name' => Str::random(10),
+                'slug' => Str::random(10),
+                'email' => Str::random(10).'@gmail.com',
+                'city_id' => rand(1,50),
+                'user_id' => $userId1,
+                'status' => rand(1,3),
+                'appointments_day' => rand(4,8),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
     }
 }

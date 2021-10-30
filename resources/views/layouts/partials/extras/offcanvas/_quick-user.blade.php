@@ -19,7 +19,7 @@
 		{{-- Header --}}
         <div class="d-flex align-items-center mt-5">
             <div class="symbol symbol-100 mr-5">
-                <div class="symbol-label" style="background-image:url('{{ asset('media/users/300_21.jpg') }}')"></div>
+                <div class="symbol-label" style="background-image:url('{{ asset(Auth::user()->avatar) }}')"></div>
 				<i class="symbol-badge bg-success"></i>
             </div>
             <div class="d-flex flex-column">
@@ -27,6 +27,7 @@
 					{{ Auth::user()->shortName }}
 				</a>
                 <div class="text-muted mt-1">
+					{{ Auth::user()->nameRoles }}
                 </div>
                 <div class="navi mt-2">
                     <a href="#" class="navi-item">
@@ -47,7 +48,7 @@
 		{{-- Nav --}}
 		<div class="navi navi-spacer-x-0 p-0">
 		    {{-- Item --}}
-		    <a href="#" class="navi-item">
+		    <a href="{{ route('user.profile') }}" class="navi-item">
 		        <div class="navi-link">
 		            <div class="symbol symbol-40 bg-light mr-3">
 		                <div class="symbol-label">
@@ -60,7 +61,6 @@
 		                </div>
 		                <div class="text-muted">
 		                    Account settings and more
-		                    <span class="label label-light-danger label-inline font-weight-bold">update</span>
 		                </div>
 		            </div>
 		        </div>
@@ -100,10 +100,12 @@
 					{{ __('Log Out') }}
 				</x-dropdown-link>
 			</form>
-			<x-dropdown-link :href="route('logout')" class="btn btn-clean font-weight-bold"
-						onclick="event.preventDefault();">
-					{{ __('Upgrade Plan') }}
+			@if (!Auth::user()->isAdmin())
+			<x-dropdown-link :href="route('user.profile.upgrade')" class="btn btn-clean font-weight-bold"
+				onclick="event.preventDefault();">
+				{{ __('Upgrade Plan') }}
 			</x-dropdown-link>
+			@endif			
 		</div>
     </div>
 </div>

@@ -1,6 +1,8 @@
 <?php
 namespace App\Classes\Theme;
 
+use Illuminate\Support\Facades\Auth;
+
 class Metronic
 {
     public static $attrs;
@@ -93,15 +95,15 @@ class Metronic
     public static function initThemes()
     {
         $themes = [];
-
-        $themes[] = 'css/themes/layout/header/base/'.config('layout.header.self.theme').'.css';
-        $themes[] = 'css/themes/layout/header/menu/'.config('layout.header.menu.desktop.submenu.theme').'.css';
-        $themes[] = 'css/themes/layout/aside/'.config('layout.aside.self.theme').'.css';
+         
+        $themes[] = 'css/themes/layout/header/base/'.(Auth::user()->headerTheme ?? config('layout.header.self.theme')).'.css';
+        $themes[] = 'css/themes/layout/header/menu/'.(Auth::user()->desktopTheme ?? config('layout.header.menu.desktop.submenu.theme')).'.css';
+        $themes[] = 'css/themes/layout/aside/'.(Auth::user()->sideTheme ?? config('layout.aside.self.theme')).'.css';
 
         if (config('layout.aside.self.display')) {
-            $themes[] = 'css/themes/layout/brand/'.config('layout.brand.self.theme').'.css';
+            $themes[] = 'css/themes/layout/brand/'.(Auth::user()->brandTheme ?? config('layout.brand.self.theme')).'.css';
         } else {
-            $themes[] = 'css/themes/layout/brand/'.config('layout.header.self.theme').'.css';
+            $themes[] = 'css/themes/layout/brand/'.(Auth::user()->brandTheme ??config('layout.header.self.theme')).'.css';
         }
 
         return $themes;
