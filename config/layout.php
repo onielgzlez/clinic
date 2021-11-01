@@ -268,14 +268,14 @@ return [
             ]
         ],
         'css' => [
-            'plugins/global/plugins.bundle.css',
+            'plugins/global/plugins.bundle.min.css',
             'plugins/custom/prismjs/prismjs.bundle.css',
-            'css/style.bundle.css',
+            'css/style.bundle.min.css',
         ],
         'js' => [
-            'plugins/global/plugins.bundle.js',
+            'plugins/global/plugins.bundle.min.js',
             'plugins/custom/prismjs/prismjs.bundle.js',
-            'js/scripts.bundle.js',
+            'js/scripts.bundle.min.js',
         ],
     ],
 

@@ -96,14 +96,14 @@ class Metronic
     {
         $themes = [];
          
-        $themes[] = 'css/themes/layout/header/base/'.(Auth::user()->headerTheme ?? config('layout.header.self.theme')).'.css';
-        $themes[] = 'css/themes/layout/header/menu/'.(Auth::user()->desktopTheme ?? config('layout.header.menu.desktop.submenu.theme')).'.css';
-        $themes[] = 'css/themes/layout/aside/'.(Auth::user()->sideTheme ?? config('layout.aside.self.theme')).'.css';
+        $themes[] = 'css/themes/layout/header/base/'.(Auth::user()->headerTheme ?? config('layout.header.self.theme')).'.min.css';
+        $themes[] = 'css/themes/layout/header/menu/'.(Auth::user()->desktopTheme ?? config('layout.header.menu.desktop.submenu.theme')).'.min.css';
+        $themes[] = 'css/themes/layout/aside/'.(Auth::user()->sideTheme ?? config('layout.aside.self.theme')).'.min.css';
 
         if (config('layout.aside.self.display')) {
-            $themes[] = 'css/themes/layout/brand/'.(Auth::user()->brandTheme ?? config('layout.brand.self.theme')).'.css';
+            $themes[] = 'css/themes/layout/brand/'.(Auth::user()->brandTheme ?? config('layout.brand.self.theme')).'.min.css';
         } else {
-            $themes[] = 'css/themes/layout/brand/'.(Auth::user()->brandTheme ??config('layout.header.self.theme')).'.css';
+            $themes[] = 'css/themes/layout/brand/'.(Auth::user()->brandTheme ??config('layout.header.self.theme')).'.min.css';
         }
 
         return $themes;
