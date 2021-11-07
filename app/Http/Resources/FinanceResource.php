@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PatientResource extends JsonResource
+class FinanceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,19 +16,19 @@ class PatientResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->fullName,
-            'photo' => $this->avatar,
-            'organizations' => $this->nameClinics,
-            'email' => $this->email,
-            'document' => $this->document,
-            'city' => $this->city ? $this->city->name : '',
+            'type' => $this->type,
+            'amount' => $this->amount,
+            'pay_date' => $this->pay_date,
+            'order' => $this->order,
+            'organization' => $this->organization->name,           
+            'user' => $this->user->fullName,           
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'actions' => array(
                 'crsf' => csrf_token(),
-                'view' => route('patients.show', ['id' => $this->id]),
-                'edit' => route('patients.edit', ['id' => $this->id]),
-                'delete' => route('patients.delete', ['id' => $this->id])
+                'view' => route('finances.show', ['id' => $this->id]),
+                'edit' => route('finances.edit', ['id' => $this->id]),
+                'delete' => route('finances.delete', ['id' => $this->id])
             ),
         ];
     }

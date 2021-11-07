@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Organization;
 use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,6 +35,16 @@ Route::get('/patients/s/{id?}', function (Request $request,$id = null) {
      
     if (!$patient) return ['valid' => true, 'text' => trans('locale.No Results Found.')];
     return ['valid' => false, 'text' => trans('locale.Ok, got it!')];
+});
+
+Route::get('/organizations/{id}/patients', function ($id) {
+    $org = Organization::find($id);
+    $patients = [];
+    $patientss = $org->patients->pluck('shortName','id');    
+    foreach ($patientss as $k=>$v) {
+       array_push($patients,['id'=>$k,'name'=>$v]);
+    }
+    return compact('patients');
 });
 
 Route::get('/users/s/{id?}', function (Request $request,$id = null) {

@@ -1,6 +1,6 @@
 {{-- Extends layout --}}
 @extends('dashboard')
-@section('title'){{ __('locale.Patients') }} @endsection
+@section('title'){{ __('locale.Finances') }} @endsection
 @section('page_title')
 {{-- Page Title --}}
 <h5 class="text-dark font-weight-bold my-2 mr-5">
@@ -30,8 +30,8 @@
 @section('page_toolbar')
 {{-- Page toolbar --}}
 <a class="btn btn-light-primary font-weight-bold btn-sm px-4 font-size-base ml-2"
-    href="{{ route('patients.create') }}">{{
-    __('Nuevo paciente') }}</a>
+    href="{{ route('finances.create') }}">{{
+    __('locale.New finance') }}</a>
 @endsection
 @section('page_actions')
 {{-- Page toolbar --}}
@@ -91,13 +91,13 @@
 <div class="card card-custom gutter-b">
     <div class="card-header">
         <div class="card-title">
-            <h3 class="card-label">{{ __('locale.Patients management') }}
-                <span class="d-block text-muted pt-2 font-size-sm">{{ __('locale.Simplified patients management') }}</span>
+            <h3 class="card-label">{{ __('locale.Finances management') }}
+                <span class="d-block text-muted pt-2 font-size-sm">{{ __('locale.Simplified finances management') }}</span>
             </h3>
         </div>
-        <div class="card-toolbar"><a href="{{ route('patients.create') }}" class="btn btn-primary font-weight-bolder">
+        <div class="card-toolbar"><a href="{{ route('finances.create') }}" class="btn btn-primary font-weight-bolder">
                 {{ Metronic::getSVG("media/svg/icons/Design/Flatten.svg", "svg-icon-md") }}
-                {{ __('locale.Create patient') }}</a>
+                {{ __('locale.Create finance') }}</a>
         </div>
     </div>
     <div class="card-body">
@@ -109,5 +109,5 @@
 
 {{-- Scripts Section --}}
 @section('scripts')
-<script src="{{ asset('js/pages/custom/patients/list-datatable.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/pages/custom/finances/list-datatable.js') }}" type="text/javascript"></script>
 @endsection

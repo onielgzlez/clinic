@@ -26,6 +26,14 @@ var KTBootstrapDatepicker = function () {
             templates: arrows
         });
         
+        $('#pay_date').datepicker({
+            rtl: KTUtil.isRTL(),
+            todayHighlight: true,
+            format: 'yyyy-mm-dd',
+            orientation: "bottom left",
+            templates: arrows
+        });
+        
         // range picker
         $('#kt_datepicker_range').datepicker({
             rtl: KTUtil.isRTL(),

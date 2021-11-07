@@ -24,3 +24,19 @@
 </div>
 @endif
 @endif
+@if(Session::get('warning', false))
+<?php $data = Session::get('warning'); ?>
+@if (is_array($data))
+@foreach ($data as $msg)
+<div class="alert alert-custom alert-warning alert-shadow fade show gutter-b" role="alert">
+    <div class="alert-icon"><i class="fa fa-check fa-1x"></i></div>
+    <div class="alert-text">{{ $msg }}</div>
+</div>
+@endforeach
+@else
+<div class="alert alert-custom alert-warning alert-shadow fade show gutter-b" role="alert">
+    <div class="alert-icon"><i class="fa fa-check fa-1x"></i></div>
+    <div class="alert-text">{{ $data }}</div>
+</div>
+@endif
+@endif

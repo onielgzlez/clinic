@@ -21,6 +21,9 @@ class PatientController extends Controller
     {
         $user = request()->user();
         $totalU = Patient::count();
+        if (!$user->isAdmin())
+            $totalU = Patient::whereRelation('organizations', 'id', 'IN', $user->organizations()->distinct()->allRelatedIds())->orWhereRelation('organizations', 'user_id', '=', $user->id)->count();
+
         if ($request->isXmlHttpRequest()) {
             $pagination = $request->input('pagination');
             extract($pagination);
@@ -49,7 +52,7 @@ class PatientController extends Controller
                 ->orWhere('email', 'like', "$filter%")->orWhere('document', 'like', "$filter%")->orWhere('city_id', 'like', "$filter%");
 
             if (!$user->isAdmin())
-                $data = $data->whereRelation('organizations', 'id', 'IN', $user->organizations()->distinct()->getRelatedIds());
+                $data = $data->whereRelation('organizations', 'id', 'IN', $user->organizations()->distinct()->allRelatedIds())->orWhereRelation('organizations','user_id','=',$user->id);
 
             $data = $data->get();
 
@@ -84,9 +87,9 @@ class PatientController extends Controller
     public function create()
     {
         $user = request()->user();
-        $organizations = Organization::orderBy('id', 'desc');
+        $organizations = Organization::orderBy('id', 'desc');        
         if (!$user->isAdmin())
-            $organizations = $organizations->whereIn('id', $user->organizations()->distinct()->getRelatedIds());
+            $organizations = $organizations->whereIn('id', $user->organizations()->distinct()->allRelatedIds())->orWhere('user_id',$user->id);
         $organizations = $organizations->get();
         $cities = City::all();
         return view('patients.create', compact('user', 'organizations', 'cities'));
@@ -121,7 +124,7 @@ class PatientController extends Controller
             $user->update(['photo' => $path]);
         }
 
-        $user->organizations()->attach($request->input('organizations'));
+        $user->organizations()->sync($request->input('organizations'),false);
 
         return redirect()->route('patients.list')
             ->with('success', trans('locale.The item was created successfully'));
@@ -151,7 +154,7 @@ class PatientController extends Controller
         $auth = request()->user();
         $organizations = Organization::orderBy('id', 'desc');
         if (!$auth->isAdmin())
-            $organizations = $organizations->whereIn('id', $auth->organizations()->distinct()->getRelatedIds());
+            $organizations = $organizations->whereIn('id', $auth->organizations()->distinct()->allRelatedIds())->orWhere('user_id',$user->id);
         $organizations = $organizations->get();
         $cities = City::all();
         return view('patients.edit',compact('user', 'organizations', 'cities'));
@@ -188,8 +191,8 @@ class PatientController extends Controller
         }
 
         $user->update($input);
-        $user->organizations()->detach();
-        $user->organizations()->attach($request->input('organizations'));
+       
+        $user->organizations()->sync($request->input('organizations'),false);
 
         return redirect()->route('patients.list')
             ->with('success', trans('locale.The item was updated successfully'));

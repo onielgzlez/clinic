@@ -20,6 +20,7 @@ class AreaJobResource extends JsonResource
             'description' => $this->description,            
             'actions' => array(
                 'crsf' => csrf_token(),
+                'view' => route('areas.show', ['id' => $this->id]),
                 'edit' => route('areas.edit', ['id' => $this->id]),
                 'delete' => route('areas.delete', ['id' => $this->id])
             ),

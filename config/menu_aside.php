@@ -107,11 +107,39 @@ return [
             'section' => 'Modulos',
         ],        
         [
+            'title' => 'Personal Medico',
+            'icon' => 'flaticon-users',
+            'page' => 'especialistas',
+            'root' => true,
+            'role' => ['Administrador', 'Administrador clínica', 'Secretaria'],
+        ],
+        [
             'title' => 'Pacientes',
             'icon' => 'media/svg/icons/Layout/Layout-4-blocks.svg',
             'page' => 'patients',
             'root' => true,
             'role' => ['Administrador', 'Administrador clínica', 'Secretaria','Especialista'],
+        ],
+        [
+            'title' => 'Historias Clinicas',
+            'icon' => 'flaticon-clipboard',
+            'page' => 'histories',
+            'root' => true,
+            'role' => ['Administrador', 'Administrador clínica', 'Secretaria','Especialista'],
+        ],
+        [
+            'title' => 'Citas',
+            'icon' => 'flaticon-interface-5',
+            'page' => 'appointments',
+            'root' => true,
+            'role' => ['Administrador', 'Administrador clínica', 'Secretaria','Especialista'],
+        ],
+        [
+            'title' => 'Finanzas',
+            'icon' => 'flaticon-coins',
+            'page' => 'finances',
+            'root' => true,
+            'role' => ['Administrador', 'Administrador clínica', 'Secretaria','Contadora'],
         ],
         // Config
         [
@@ -121,23 +149,54 @@ return [
         [
             'title' => 'Especialidades',
             'icon' => 'flaticon2-layers',
-            'page' => 'areas',
-            'root' => false,
+            'bullet' => 'line',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Consultar Especialidades',
+                    'bullet' => 'dot',
+                    'page' => 'areas',                    
+                ],                                    
+            ],
             'role' => ['Administrador', 'Administrador clínica', 'Secretaria'],
         ],
         [
             'title' => 'Usuarios',
-            'icon' => 'flaticon2-user-1',
-            'page' => 'users',
-            'root' => false,
+            'icon' => 'flaticon2-user-1',            
             'role' => 'Administrador',
+            'bullet' => 'line',
+            'root' => true,  
+            'submenu' => [
+                [
+                    'title' => 'Listar Usuarios',
+                    'bullet' => 'dot',
+                    'page' => 'users',                    
+                ],
+                [
+                    'title' => 'Crear Usuario',
+                    'bullet' => 'dot',
+                    'page' => 'users/create',                    
+                ],                       
+            ]
         ],        
         [
             'title' => 'Clinicas',
-            'icon' => 'media/svg/icons/Layout/Layout-4-blocks.svg',
-            'page' => 'organizations',
-            'root' => true,
+            'icon' => 'flaticon-plus',            
             'role' => ['Administrador', 'Administrador clínica'],
+            'bullet' => 'line',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Listar Clinicas',
+                    'bullet' => 'dot',
+                    'page' => 'organizations',                    
+                ],
+                [
+                    'title' => 'Agregar Clinica',
+                    'bullet' => 'dot',
+                    'page' => 'organizations/create',                    
+                ],                        
+            ]
         ],
     ]
 

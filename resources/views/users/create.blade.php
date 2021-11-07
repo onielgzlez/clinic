@@ -20,14 +20,6 @@
 <a class="btn btn-default font-weight-bold btn-sm px-3 font-size-base" href="{{ route('users.list') }}">{{ __('locale.Go back')
     }}</a>
 @endsection
-@section('page_actions')
-{{-- Page toolbar --}}
-<div class="btn-group ml-2">
-    <button class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base" type="button" id="saveButton"
-        onclick="$('#form-btn-sub').trigger('click')">{{ __('locale.Save')
-        }}</button>
-</div>
-@endsection
 {{-- Content --}}
 @section('content')
 

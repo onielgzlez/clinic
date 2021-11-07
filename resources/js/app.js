@@ -13,6 +13,9 @@ window.translate = function (string, args) {
     });
     return value;
 }
+window.clearCache = function (url) {
+    fetch(url)
+}
 /*
 import React from 'react';
 import { render } from 'react-dom';

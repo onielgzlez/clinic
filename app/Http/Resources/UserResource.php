@@ -29,6 +29,7 @@ class UserResource extends JsonResource
             'self' => Auth::user()->id == $this->id,
             'actions' => array(
                 'crsf' => csrf_token(),
+                'view' => route('users.show', ['id' => $this->id]),
                 'edit' => route('users.edit', ['id' => $this->id]),
                 'delete' => route('users.delete', ['id' => $this->id])
             ),

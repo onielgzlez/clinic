@@ -25,18 +25,14 @@
         </div>
 
         <div class="col-xxl-8 order-2 order-xxl-1">
-            @include('pages.widgets._widget-6', ['class' => 'card-stretch gutter-b'])
+            @include('pages.widgets._widget-6', ['class' => 'card-stretch gutter-b','patients'])
         </div>
 
-        <div class="col-lg-6 col-xxl-4 order-1 order-xxl-2">
+        <div class="col-lg-6 col-xxl-6 order-1 order-xxl-2">
             @include('pages.widgets._widget-7', ['class' => 'card-stretch gutter-b'])
         </div>
 
-        <div class="col-lg-6 col-xxl-4 order-1 order-xxl-2">
-            @include('pages.widgets._widget-8', ['class' => 'card-stretch gutter-b'])
-        </div>
-
-        <div class="col-lg-12 col-xxl-4 order-1 order-xxl-2">
+        <div class="col-lg-12 col-xxl-6 order-1 order-xxl-2">
             @include('pages.widgets._widget-9', ['class' => 'card-stretch gutter-b'])
         </div>
     </div>

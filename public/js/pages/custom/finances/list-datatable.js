@@ -1,10 +1,10 @@
 "use strict";
 // Class definition
 
-var KTAppsAreasListDatatable = function () {
+var KTAppsUsersListDatatable = function () {
 	// Private functions
 
-	var _areas = function () {
+	var _users = function () {
 
 		var datatable = $('#kt_datatable').KTDatatable({
 			// datasource definition
@@ -12,12 +12,9 @@ var KTAppsAreasListDatatable = function () {
 				type: 'remote',
 				source: {
 					read: {
-						url: '/areas',
+						url: '/finances',
 						method: 'GET',
 						contentType: 'application/json',
-					},
-					params: {
-						'page': 1
 					}
 				},
 				pageSize: 10, // display 20 records per page
@@ -53,26 +50,37 @@ var KTAppsAreasListDatatable = function () {
 					type: 'number',
 					selector: false,
 					textAlign: 'left',
-					template: function (data) {
+					template: function (data) {						
 						return '<span class="font-weight-bolder">' + data.id + '</span>';
 					}
 				}, {
-					field: 'name',
-					title: translate('locale.fields.name'),
+					field: 'type',
+					title: translate('locale.fields.type'),				
+					template: function (data) {						
+						return '<div class="text-dark-75 font-weight-bolder font-size-lg mb-0">' + (data.type == 'income' ? translate('locale.fields.income') : translate('locale.fields.outcome')) + '</div>';					
+					}
+				}, {
+					field: 'amount',
+					title: translate('locale.fields.amount'),
+					template: function (row) {
+						return '<div class="font-weight-bolder font-size-lg mb-0">' + row.amount + '</div>';
+					}
+				}, {
+					field: 'pay_date',
+					title: translate('locale.fields.pay_date'),
+					template: function (row) {
+						return '<div class="font-weight-bolder text-primary mb-0">' + row.pay_date + '</div>';
+					},
+				}, {
+					field: 'organization',
+					title: translate('locale.fields.organization'),
 					sortable: false,
-					width: 300,
-					template: function (data) {
-						var output = '<div class="d-flex align-items-center">\
-            <div class="ml-4">\
-              <div class="text-dark-75 font-weight-bolder font-size-lg mb-0">' + data.name + '</div>\
-            </div>\
-          </div>';
-
-						return output;
+					template: function (row) {
+						return '<div class="font-weight-bold text-muted">' + row.organization + '</div>';
 					}
 				}, {
 					field: 'actions',
-					title: translate('locale.Actions'),
+					title: translate('locale.actions'),
 					sortable: false,
 					width: 130,
 					overflow: 'visible',
@@ -124,7 +132,7 @@ var KTAppsAreasListDatatable = function () {
 	return {
 		// public functions
 		init: function () {
-			_areas();
+			_users();
 		},
 	};
 }();
@@ -146,5 +154,5 @@ var _modal = function (a) {
 };
 
 jQuery(document).ready(function () {
-	KTAppsAreasListDatatable.init();
+	KTAppsUsersListDatatable.init();
 });

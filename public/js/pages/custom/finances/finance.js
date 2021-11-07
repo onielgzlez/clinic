@@ -3,13 +3,8 @@
 // Class definition
 var KTUserEdit = function () {
   // Base elements
-  var avatar;
   var _formEl;
   const saveButton = document.getElementById('saveButton');
-
-  var initUserForm = function () {
-    avatar = new KTImageInput('kt_user_edit_avatar');
-  }
 
   var _initValidations = function () {
     // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
@@ -19,77 +14,36 @@ var KTUserEdit = function () {
       _formEl,
       {
         fields: {
-          first_name: {
+          type: {
             validators: {
               notEmpty: {
-                message: translate('validation.required', { attribute: translate('locale.fields.first_name') })
+                message: translate('validation.required', { attribute: translate('locale.fields.type') })
               }
             }
           },
-          last_name: {
+          amount: {
             validators: {
               notEmpty: {
-                message: translate('validation.required', { attribute: translate('locale.fields.last_name') })
+                message: translate('validation.required', { attribute: translate('locale.fields.amount') })
               }
             }
           },
-          last_name2: {
-            validators: {
-              notEmpty: {
-                message: translate('validation.required', { attribute: translate('locale.fields.last_name2') })
-              }
-            }
-          },
-          document: {
-            validators: {
-              notEmpty: {
-                message: translate('validation.required', { attribute: translate('locale.fields.document') })
-              },
-              remote: {
-                message: translate('validationd.unique', { attribute: translate('locale.fields.document') }),
-                method: 'GET',
-                url: '/api/patients/s/'+ KTUtil.getById('ktId').value,
-              }
-            }
-          },
-          birthdate: {
-            validators: {
-              notEmpty: {
-                message: translate('validation.date', { attribute: translate('locale.fields.birthdate') })
-              },
-            }
-          },
-          email: {
-            validators: {
-              notEmpty: {
-                message: translate('validation.required', { attribute: translate('locale.fields.email') })
-              },
-              emailAddress: {
-                message: translate('validation.email', { attribute: translate('locale.fields.email') })
-              }
-            }
-          },
-          organizations: {
+          organization_id: {
             validators: {
               notEmpty: {
                 message: translate('validation.required', { attribute: translate('locale.fields.organization') })
-              },
-            }
-          },
-          address: {
-            validators: {
-              notEmpty: {
-                message: translate('validation.required', { attribute: translate('locale.fields.address') }),
-              },
-            },
-          },
-          city_id: {
-            validators: {
-              notEmpty: {
-                message: translate('validation.required', { attribute: translate('locale.fields.city') }),
               }
             }
           },
+
+          pay_date: {
+            validators: {
+              notEmpty: {
+                message: translate('validation.date', { attribute: translate('locale.fields.pay_date') })
+              },
+            }
+          },
+
         },
         plugins: {
           // Bootstrap Framework Integration
@@ -121,7 +75,7 @@ var KTUserEdit = function () {
           : translate('locale.Please try again');
       });
     });
-  
+
   }
 
   return {
@@ -129,11 +83,40 @@ var KTUserEdit = function () {
     init: function () {
       _formEl = KTUtil.getById('kt_form');
       _initValidations();
-      initUserForm();
     }
   };
 }();
 
+function ok(el) {
+  if (el.value == 'income') {
+    $('.income').removeClass('d-none');
+    if ($('#organization_id').val()) populateData($('#organization_id').val(),$('#patient_id').val())
+  } else {
+    $('.income').addClass('d-none');
+  }
+}
+
+$('#organization_id').change(function () {
+  if ($('#financeType').val() == 'income' && this.value) {
+    populateData(this.value,$('#patient_id').val())
+  }
+});
+
+function populateData(id, val = null) {
+  axios.get('/api/organizations/' + id + '/patients').then(function (response) {
+    var patients = response.data.patients;
+    $('#patient_id').empty();
+    var options = '<option value="">' + translate('locale.Select') + '...</option>';
+    patients.forEach(function (e, i) {
+      var selected = (val == e.id) ? 'selected' : '';
+      options += '<option value="' + e.id + '" ' + e.id + '>' + e.name + '</option>';
+    });
+    $('#patient_id').append(options);
+  })
+}
+
 jQuery(document).ready(function () {
   KTUserEdit.init();
+  $('#financeType').trigger('change');
+  $('#organization_id').trigger('change');
 });

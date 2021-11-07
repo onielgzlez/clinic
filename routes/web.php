@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaJobController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::get('language/{locale}', function ($locale) {
     app()->setLocale($locale);
@@ -39,6 +38,12 @@ Route::get('/organizations', [OrganizationController::class, 'index'])
 
 Route::post('/organizations', [OrganizationController::class, 'store'])
     ->middleware('auth');
+
+Route::get('clearLocale', function () {
+        $lang = session()->get('locale') ?? request()->user()->locale ?? config('app.locale');    
+        \Illuminate\Support\Facades\Cache::forget('lang_' . $lang . '.js');
+        exit();
+    })->name('clearLocale');
 
 Route::get('js/translations.js', function () {
     $lang = session()->get('locale') ?? request()->user()->locale ?? config('app.locale');    
@@ -61,7 +66,10 @@ Route::get('js/translations.js', function () {
     exit();
 })->name('translations');
 
+Route::fallback([DashboardController::class, 'index'])->middleware('auth');
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/areas.php';
 require __DIR__ . '/patients.php';
+require __DIR__ . '/finances.php';
 require __DIR__ . '/users.php';

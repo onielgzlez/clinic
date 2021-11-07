@@ -52,4 +52,5 @@
     @endif
 
     @include('layouts.partials.extras._scrolltop')
+    @include('layouts.partials.extras._clear')
 </x-app-layout>

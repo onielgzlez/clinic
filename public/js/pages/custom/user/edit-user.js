@@ -92,17 +92,17 @@ var KTUserEdit = function () {
         }
       }
     ).on('core.form.validating', function () {
-      saveButton.innerHTML = 'Validating ...';
+      saveButton.innerHTML = translate('locale.Validating');
     });
 
-    saveButton.addEventListener('click', function() {
-      fv.validate().then(function(status) {
-          // Update the login button content based on the validation status
-          saveButton.innerHTML = (status === 'Valid')
-              ? 'Form is validated. Savind in ...'
-              : 'Please try again';
+    saveButton.addEventListener('click', function () {
+      fv.validate().then(function (status) {
+        // Update the login button content based on the validation status
+        saveButton.innerHTML = (status === 'Valid')
+          ? translate('locale.Form is validated, savind in')
+          : translate('locale.Please try again');
       });
-  });
+    });
 
     let enabled = false;
     _formEl.querySelector('[name="password"]').addEventListener('input', function (e) {
