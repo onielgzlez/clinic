@@ -120,7 +120,7 @@ class UserController extends Controller
         $user = User::create($input);
         if ($request->file('photo')) {
             $path = $request->file('photo')->store(
-                'avatars/' . $user->id,
+                'imgs/avatars/' . $user->id,
                 'uploads'
             );
             $user->update(['photo'=>$path]);
@@ -225,7 +225,7 @@ class UserController extends Controller
             'last_name' => 'required',
             'last_name2' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            //'document' => 'required|document|unique:users,' . $user->id,
+            'document' => 'required|unique:users,document,' . $user->id,
             'password' => 'same:confirm-password',
         ]);
 
@@ -237,7 +237,7 @@ class UserController extends Controller
         }
         if ($request->file('photo')) {
             $path = $request->file('photo')->store(
-                'avatars/' . $user->id,
+                'imgs/avatars/' . $user->id,
                 'uploads'
             );
             $input['photo'] = $path;

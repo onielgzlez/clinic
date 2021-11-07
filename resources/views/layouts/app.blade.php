@@ -10,7 +10,7 @@
     <x-title>@yield('title', $title ?? '')</x-title>    
 
     {{-- Meta Data --}}
-    <meta name="description" content="@yield('title', $title ?? '')" />
+    <meta name="description" content="{{ config('app.desc') }}" />
 
     <!-- Fonts -->
     {{ Metronic::getGoogleFontsInclude() }}

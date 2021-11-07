@@ -114,7 +114,8 @@
             <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
                     @php
-                        $locale = app()->getLocale() == 'en' ? '226-united-states.svg' : '128-spain.svg';
+                        $lang = session()->get('locale') ?? request()->user()->locale ?? app()->getLocale(); 
+                        $locale = $lang == 'en' ? '226-united-states.svg' : '128-spain.svg';
                     @endphp
                     <img class="h-20px w-20px rounded-sm" src="{{ asset('media/svg/flags/'.$locale) }}" alt=""/>
                 </div>

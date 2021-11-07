@@ -12,12 +12,9 @@ var KTAppsUsersListDatatable = function () {
 				type: 'remote',
 				source: {
 					read: {
-						url: '/users',
+						url: '/patients',
 						method: 'GET',
 						contentType: 'application/json',
-					},
-					params: {
-						'page': 1
 					}
 				},
 				pageSize: 10, // display 20 records per page
@@ -58,7 +55,7 @@ var KTAppsUsersListDatatable = function () {
 					}
 				}, {
 					field: 'name',
-					title: 'Nombre completo',
+					title: translate('locale.fields.name'),
 					sortable: false,
 					width: 300,
 					template: function (data) {
@@ -75,50 +72,38 @@ var KTAppsUsersListDatatable = function () {
 						return output;
 					}
 				}, {
-					field: 'type',
-					title: 'Tipo',
+					field: 'city_id',
+					title: translate('locale.fields.city'),
 					template: function (row) {
 						var output = '';
 
-						output += '<div class="font-weight-bolder font-size-lg mb-0">' + row.type + '</div>';
+						output += '<div class="font-weight-bolder font-size-lg mb-0">' + row.city + '</div>';
 
 						return output;
 					}
 				}, {
 					field: 'email',
-					title: 'Correo',
+					title: translate('locale.fields.document'),
 					template: function (row) {
 						var output = '';
-						output += '<div class="font-weight-bolder text-primary mb-0">' + row.email + '</div>';
+						output += '<div class="font-weight-bolder text-primary mb-0">' + row.document + '</div>';
 
 						return output;
 					},
 				}, {
-					field: 'rol',
-					title: 'Rol',
+					field: 'organizations',
+					title: translate('locale.fields.organization'),
 					sortable: false,
 					template: function (row) {
 						var output = '';
 
-						output += '<div class="font-weight-bold text-muted">' + row.roles + '</div>';
+						output += '<div class="font-weight-bold text-muted">' + row.organizations + '</div>';
 
 						return output;
 					}
 				}, {
-					field: 'status',
-					title: 'Estado',
-					// callback function support for column rendering
-					template: function (row) {
-						var status = {
-							1: { 'title': 'Activo', 'class': ' label-light-success' },
-							2: { 'title': 'Pendiente', 'class': ' label-light-info' },
-							3: { 'title': 'Suspendido', 'class': ' label-light-danger' },
-						};
-						return '<span class="label label-lg font-weight-bold ' + status[row.status].class + ' label-inline">' + status[row.status].title + '</span>';
-					},
-				}, {
 					field: 'actions',
-					title: 'Acciones',
+					title: translate('locale.actions'),
 					sortable: false,
 					width: 130,
 					overflow: 'visible',

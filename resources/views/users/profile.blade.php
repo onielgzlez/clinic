@@ -48,7 +48,7 @@
         </div>
         {{-- endContact --}}
         {{-- beginNav --}}
-        <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
+        <div class="navi links navi-bold navi-hover navi-active navi-link-rounded">
           <div class="navi-item mb-2">
             <a href="{{ route('user.profile.overview') }}" class="navi-link py-4">
               <span class="navi-icon mr-2">
@@ -100,4 +100,7 @@
   <div class="flex-row-fluid ml-lg-8">@yield('context')</div>
 </div>
 
+@endsection
+@section('scripts')
+  <script src="{{ asset('js/pages/custom/profile/profile.js') }}"></script>
 @endsection

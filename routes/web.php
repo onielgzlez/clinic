@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AreaJobController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +41,7 @@ Route::post('/organizations', [OrganizationController::class, 'store'])
     ->middleware('auth');
 
 Route::get('js/translations.js', function () {
-    $lang = session()->get('locale') ?? config('app.locale');    
+    $lang = session()->get('locale') ?? request()->user()->locale ?? config('app.locale');    
     $strings = \Illuminate\Support\Facades\Cache::rememberForever('lang_' . $lang . '.js', function () use ($lang) {
         $path = resource_path('lang' . DIRECTORY_SEPARATOR . $lang . DIRECTORY_SEPARATOR);
         $files = scandir($path);
@@ -61,4 +62,6 @@ Route::get('js/translations.js', function () {
 })->name('translations');
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/areas.php';
+require __DIR__ . '/patients.php';
 require __DIR__ . '/users.php';

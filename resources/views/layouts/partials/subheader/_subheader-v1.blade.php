@@ -6,6 +6,11 @@
 
         {{-- Info --}}
         <div class="d-flex align-items-center flex-wrap mr-1">
+            <!--begin::Mobile Toggle-->
+            <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
+                <span></span>
+            </button>
+            <!--end::Mobile Toggle-->
             @hasSection('page_title')
             @yield('page_title')
             @else
@@ -13,8 +18,8 @@
             <h5 class="text-dark font-weight-bold my-2 mr-5">
                 @yield('title', $title ?? '')
 
-                @if (isset($page_description) && config('layout.subheader.displayDesc'))
-                <small>@yield('page_description', $page_description ?? '')</small>
+                @if (config('layout.subheader.displayDesc'))
+                <small>{{ config('app.desc') }}</small>
                 @endif
             </h5>
             @endif
@@ -33,6 +38,7 @@
             @hasSection('page_actions')
             @yield('page_actions')
             @else
+            {{-- Page toolbar --}}
             <div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions" data-placement="left">
                 <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ Metronic::getSVG("media/svg/icons/Files/File-plus.svg", "svg-icon-success svg-icon-2x") }}
@@ -41,9 +47,7 @@
                     {{-- Navigation --}}
                     <ul class="navi navi-hover">
                         <li class="navi-header font-weight-bold">
-                            {{ __('Ir a') }}:
-                            <i class="flaticon2-information" data-toggle="tooltip" data-placement="right"
-                                title="Click to learn more..."></i>
+                            {{ __('locale.Go to') }}:
                         </li>
                         <li class="navi-separator mb-3"></li>
                         <li class="navi-item">
@@ -53,9 +57,9 @@
                             </a>
                         </li>
                         <li class="navi-item">
-                            <a href="#" class="navi-link">
+                            <a href="{{ route('patients.list') }}" class="navi-link">
                                 <span class="navi-icon"><i class="flaticon2-calendar-8"></i></span>
-                                <span class="navi-text">Support Cases</span>
+                                <span class="navi-text">Pacientes</span>
                             </a>
                         </li>
                         <li class="navi-item">
@@ -63,7 +67,16 @@
                                 <span class="navi-icon"><i class="flaticon2-telegram-logo"></i></span>
                                 <span class="navi-text">Projects</span>
                             </a>
-                        </li>                       
+                        </li>
+                        <li class="navi-item">
+                            <a href="#" class="navi-link">
+                                <span class="navi-icon"><i class="flaticon2-new-email"></i></span>
+                                <span class="navi-text">Messages</span>
+                                <span class="navi-label">
+                                    <span class="label label-success label-rounded">5</span>
+                                </span>
+                            </a>
+                        </li>
                         @if (!Auth::user()->isAdmin())
                         <li class="navi-separator mt-3"></li>
                         <li class="navi-footer">

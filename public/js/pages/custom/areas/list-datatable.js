@@ -1,10 +1,10 @@
 "use strict";
 // Class definition
 
-var KTAppsUsersListDatatable = function () {
+var KTAppsAreasListDatatable = function () {
 	// Private functions
 
-	var _users = function () {
+	var _areas = function () {
 
 		var datatable = $('#kt_datatable').KTDatatable({
 			// datasource definition
@@ -12,7 +12,7 @@ var KTAppsUsersListDatatable = function () {
 				type: 'remote',
 				source: {
 					read: {
-						url: '/users',
+						url: '/areas',
 						method: 'GET',
 						contentType: 'application/json',
 					},
@@ -58,67 +58,21 @@ var KTAppsUsersListDatatable = function () {
 					}
 				}, {
 					field: 'name',
-					title: 'Nombre completo',
+					title: translate('locale.fields.name'),
 					sortable: false,
 					width: 300,
 					template: function (data) {
 						var output = '<div class="d-flex align-items-center">\
-            <div class="symbol symbol-40 symbol-sm flex-shrink-0">\
-              <img class="" src="/' + data.photo + '" alt="photo">\
-            </div>\
             <div class="ml-4">\
               <div class="text-dark-75 font-weight-bolder font-size-lg mb-0">' + data.name + '</div>\
-              <a href="#" class="text-muted font-weight-bold text-hover-primary">' + data.email + '</a>\
             </div>\
           </div>';
 
 						return output;
 					}
 				}, {
-					field: 'type',
-					title: 'Tipo',
-					template: function (row) {
-						var output = '';
-
-						output += '<div class="font-weight-bolder font-size-lg mb-0">' + row.type + '</div>';
-
-						return output;
-					}
-				}, {
-					field: 'email',
-					title: 'Correo',
-					template: function (row) {
-						var output = '';
-						output += '<div class="font-weight-bolder text-primary mb-0">' + row.email + '</div>';
-
-						return output;
-					},
-				}, {
-					field: 'rol',
-					title: 'Rol',
-					sortable: false,
-					template: function (row) {
-						var output = '';
-
-						output += '<div class="font-weight-bold text-muted">' + row.roles + '</div>';
-
-						return output;
-					}
-				}, {
-					field: 'status',
-					title: 'Estado',
-					// callback function support for column rendering
-					template: function (row) {
-						var status = {
-							1: { 'title': 'Activo', 'class': ' label-light-success' },
-							2: { 'title': 'Pendiente', 'class': ' label-light-info' },
-							3: { 'title': 'Suspendido', 'class': ' label-light-danger' },
-						};
-						return '<span class="label label-lg font-weight-bold ' + status[row.status].class + ' label-inline">' + status[row.status].title + '</span>';
-					},
-				}, {
 					field: 'actions',
-					title: 'Acciones',
+					title: translate('locale.Actions'),
 					sortable: false,
 					width: 130,
 					overflow: 'visible',
@@ -170,19 +124,19 @@ var KTAppsUsersListDatatable = function () {
 	return {
 		// public functions
 		init: function () {
-			_users();
+			_areas();
 		},
 	};
 }();
 
 var _modal = function (a) {
 	Swal.fire({
-		title: translate("locale.Are you sure?"),
-		text: translate("You will not be able to reverse this action!"),
+		title: "Estás seguro?",
+		text: "No podrás revertir esta acción!",
 		icon: "warning",
 		showCancelButton: true,
-		confirmButtonText: translate("locale.Yes, delete!"),
-        cancelButtonText: translate("locale.No, cancel"),
+		confirmButtonText: "Si, eliminar!",
+		cancelButtonText: "No, cancelar!",
 		reverseButtons: true
 	}).then(function (result) {
 		if (result.value) {
@@ -192,5 +146,5 @@ var _modal = function (a) {
 };
 
 jQuery(document).ready(function () {
-	KTAppsUsersListDatatable.init();
+	KTAppsAreasListDatatable.init();
 });

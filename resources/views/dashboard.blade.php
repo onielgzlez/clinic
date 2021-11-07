@@ -1,8 +1,5 @@
-<x-app-layout> 
-    <x-slot name="title">
-        Dashboard
-    </x-slot>
-    
+<x-app-layout>     
+    @section('title'){{ __('locale.Dashboard') }} @endsection  
     @include('layouts.base._header-mobile')
 
     <div class="d-flex flex-column flex-root">

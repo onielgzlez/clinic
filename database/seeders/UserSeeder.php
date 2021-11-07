@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         $roles = array(
             array('name'=>'Administrador','desc'=>'Admin site'),
             array('name'=>'Administrador clínica','desc'=>'Admin clinic'),
-            array('name'=>'Doctor','desc'=>'Doctor'),
+            array('name'=>'Especialista','desc'=>'Especialista'),
             array('name'=>'Secretaria','desc'=>'Secretaria'),
             array('name'=>'Contadora','desc'=>'Contadora'),
         );

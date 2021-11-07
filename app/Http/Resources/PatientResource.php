@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
-class UserResource extends JsonResource
+class PatientResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,18 +18,16 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->fullName,
             'photo' => $this->avatar,
-            'roles' => $this->nameRoles,
-            'status' => $this->status,
+            'organizations' => $this->nameClinics,
             'email' => $this->email,
             'document' => $this->document,
-            'type' => $this->type,
+            'city' => $this->city ? $this->city->name : '',
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'self' => Auth::user()->id == $this->id,
             'actions' => array(
                 'crsf' => csrf_token(),
-                'edit' => route('users.edit', ['id' => $this->id]),
-                'delete' => route('users.delete', ['id' => $this->id])
+                'edit' => route('patients.edit', ['id' => $this->id]),
+                'delete' => route('patients.delete', ['id' => $this->id])
             ),
         ];
     }
