@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models;
 use App\Http\Resources\AreaJobResource;
 use App\Models\AreaJob;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 class AreaJobController extends Controller
 {
@@ -15,7 +18,15 @@ class AreaJobController extends Controller
      */
     public function index(Request $request)
     {
-        $totalU = AreaJob::count();
+        //
+        //Control de Roles
+       /* if ($request->users == null) {
+            return redirect('login');
+        }
+        $request->users()->roles(['administrador']);*/
+
+       $areas['areas'] =AreaJob::all();   
+       $totalU = AreaJob::count();
         if ($request->isXmlHttpRequest()) {
             $pagination = $request->input('pagination');
             extract($pagination);
@@ -63,6 +74,94 @@ class AreaJobController extends Controller
             return response()->json(['meta' => $meta, 'data' => AreaJobResource::collection($data)]);
         }
 
-        return view('areas.index', ['total' => $totalU]);  
+        return view('areas.index' ,$areas , ['total' => $totalU]);     
+               
+    }
+    public static function getLevels(){
+        $areas = AreaJob::all();  
+        return $areas;
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+        $areas =AreaJob::all(); 
+        return view('areas.index',$areas);
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+        $areas = $request->except('_token');
+        AreaJob::insert($areas);
+    
+        return redirect('areas');      
+       
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //        
+        $areas = AreaJob::findOrFail($id);
+        return view('areas.index' , compact('areas'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        $areas = AreaJob::findOrFail($id);              
+        $areas->update($request->all());  
+        return redirect('areas');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+        AreaJob::destroy($id);
+        return redirect('/areas')->with('mensaje','Area Eliminada');
     }
 }

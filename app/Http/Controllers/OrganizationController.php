@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\Region;
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -15,8 +18,20 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        return view('organizations.index');
+        $org=Organization::all();
+        $user=User::all();
+        $city=City::all();
+        $st=Region::all();
+        return view('organizations.index',compact('user','org','city','st'));
     }
+
+    public static function getLevels(){
+        $org = Organization::all();  
+        return $org;
+    }
+
+    //
+    
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +41,13 @@ class OrganizationController extends Controller
     public function create()
     {
         //
+        $org = new Organization;   // para mandar $org en blanco      
+        $user=User::all();
+        $city=City::all();              
+        return view('organizations.create',compact('user','org','city'));
     }
+
+    
 
     /**
      * Store a newly created resource in storage.
@@ -35,19 +56,31 @@ class OrganizationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {    
+        $org = $request->except('profile_avatar','profile_avatar_remove','_token',);         
+        
+        if ($request->hasFile('photo'))
+        {
+        $org['photo']=$request->file('photo')->store('logo' , 'uploads');            
+        }
+        $org['appointments_day']=8;
+        $Random_str = uniqid(6);  
+        $org['slug']=$Random_str;
+        Organization::insert($org); 
+        return redirect('/organizations')->with('success', 'Clinica agregada correctamente');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Organization  $org
+     * @param  \App\Models\Organization $id 
      * @return \Illuminate\Http\Response
      */
-    public function show(Organization $org)
+    public function show(Organization $id)
     {
         //
+        
+        return view('organizations.edit', compact('org'));
     }
 
     /**
@@ -56,9 +89,15 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $org
      * @return \Illuminate\Http\Response
      */
-    public function edit(Organization $org)
+    public function edit($id)
     {
         //
+        $org = Organization::findOrFail($id);
+        $user = User::all();
+        $city = City::all();
+        
+        return view('organizations.edit' , compact('user','org','city'));
+
     }
 
     /**
@@ -68,9 +107,25 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $org
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Organization $org)
+    public function update(Request $request, $id)
     {
         //
+        /*$org = $request->except('_method','_token',);
+        
+        Organization::where('id','=',$id)->update($org);
+        
+        return view('organizations.index', compact('org'));*/
+
+        if ($request->file('photo')) 
+        {
+            $path = $request->file('photo')->store('logo','uploads');
+            $input['photo'] = $path;
+        }
+
+        $org = Organization::findOrFail($id);              
+        $org->update($request->all());  
+        return redirect('/organizations')->with('success', 'Clinica Modifica');
+
     }
 
     /**
@@ -79,8 +134,11 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $org
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Organization $org)
+    public function destroy( $id)
     {
         //
+        Organization::destroy($id);
+        return redirect('/organizations')->with('success', 'Clinica Eliminada');
+       
     }
 }

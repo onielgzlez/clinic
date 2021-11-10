@@ -3,6 +3,7 @@
 use App\Http\Controllers\AreaJobController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\WorkerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -32,12 +33,16 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()->back();
 })->name('change_locale');
 
-Route::get('/organizations', [OrganizationController::class, 'index'])
+/*Route::get('/organizations', [OrganizationController::class, 'index'])
     ->middleware('auth')
     ->name('organizations');
 
 Route::post('/organizations', [OrganizationController::class, 'store'])
-    ->middleware('auth');
+    ->middleware('auth');*/
+    Route::resource('/areas', AreaJobController::class)->middleware('auth');
+    Route::resource('/users', UserController::class)->middleware('auth');
+    Route::resource('/especialistas', WorkerController::class)->middleware('auth');
+    Route::resource('/organizations', OrganizationController::class)->middleware('auth');    
 
 Route::get('clearLocale', function () {
         $lang = session()->get('locale') ?? request()->user()->locale ?? config('app.locale');    
