@@ -44,7 +44,7 @@
             </li>
             <li class="navi-separator mb-3"></li>
             <li class="navi-item">
-                <a href="{{ route('organizations') }}" class="navi-link">
+                <a href="{{ route('organizations.index') }}" class="navi-link">
                     <span class="navi-icon"><i class="flaticon2-drop"></i></span>
                     <span class="navi-text">{{ __('Clínicas') }}</span>
                 </a>

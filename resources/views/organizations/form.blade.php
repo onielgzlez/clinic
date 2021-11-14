@@ -92,7 +92,7 @@
                                                         name="user_id">
                                                         <option value="">Seleccione...</option>
                                                         @foreach ($user as $us)
-                                                        <option value="{{$us->id}}">{{ $us->fullname }}</option>
+                                                        <option value="{{$us->id}}"@if ($org->city_id == $us->id) selected @endif x>{{ $us->fullname }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -139,12 +139,11 @@
                                                 <label
                                                     class="col-form-label col-3 text-lg-right text-left">Ciudad</label>
                                                 <div class="col-9">
-                                                    <select class="form-control form-control-lg form-control-solid"
-                                                        name="city_id">
-                                                        <option value="">Seleccione...</option>
+                                                    <select class="form-control form-control-lg form-control-solid" name="city_id">
+                                                        <option value="">Seleccione...</option>                                                        
                                                         @foreach ($city as $cit)
-                                                        <option value="{{ $cit->id }}">{{ $cit->name }}</option>
-                                                        @endforeach
+                                                        <option value="{{ $cit->id }}"@if ($org->city_id == $cit->id) selected @endif >{{ $cit->name }}</option>
+                                                        @endforeach                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -168,7 +167,7 @@
                                                         <option value="">Seleccione...</option>
                                                         @foreach (['1'=>'Activo','2'=>'Pendiente','3'=>'Suspendido'] as
                                                         $key=>$status)
-                                                        <option value="{{ $key }}">{{ $status }}</option>
+                                                        <option value="{{ $key }}" @if ($org->status == $key) selected @endif >{{ $status }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

@@ -94,6 +94,7 @@ class OrganizationController extends Controller
         //
         $org = Organization::findOrFail($id);
         $user = User::all();
+        
         $city = City::all();
         
         return view('organizations.edit' , compact('user','org','city'));
@@ -110,22 +111,14 @@ class OrganizationController extends Controller
     public function update(Request $request, $id)
     {
         //
-        /*$org = $request->except('_method','_token',);
-        
-        Organization::where('id','=',$id)->update($org);
-        
-        return view('organizations.index', compact('org'));*/
-
-        if ($request->file('photo')) 
+        $org = $request->except('_method','_token',);
+        if ($request->hasFile('photo'))
         {
-            $path = $request->file('photo')->store('logo','uploads');
-            $input['photo'] = $path;
+        $org['photo']=$request->file('photo')->store('logo' , 'uploads');            
         }
-
-        $org = Organization::findOrFail($id);              
-        $org->update($request->all());  
+        Organization::where('id','=',$id)->update($org);  
         return redirect('/organizations')->with('success', 'Clinica Modifica');
-
+        
     }
 
     /**

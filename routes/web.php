@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AreaJobController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrganizationController;
