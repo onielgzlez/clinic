@@ -5,7 +5,7 @@
     'items' => [
         // Dashboard
         [
-            'title' => 'Dashboard',
+            'title' => 'INI',
             'root' => true,
             'icon' => 'flaticon-home', // or can be 'flaticon-home' or any flaticon-*
             'page' => '/dashboard',
@@ -95,7 +95,7 @@ return [
     'items' => [
         // Dashboard
         [
-            'title' => 'Dashboard',
+            'title' => 'INICIO',
             'root' => true,
             'icon' => 'flaticon-home', // or can be 'flaticon-home' or any flaticon-*
             'page' => '/dashboard',
@@ -116,8 +116,20 @@ return [
         [
             'title' => 'Pacientes',
             'icon' => 'media/svg/icons/Layout/Layout-4-blocks.svg',
-            'page' => 'patients',
+            'bullet' => 'line',
             'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Consultar Pacientes',
+                    'bullet' => 'dot',
+                    'page' => 'patients',                    
+                ],
+                [
+                    'title' => 'Crear Paciente',
+                    'bullet' => 'dot',
+                    'page' => 'patients/create',                    
+                ],                                    
+            ],
             'role' => ['Administrador', 'Administrador clínica', 'Secretaria','Especialista'],
         ],
         [
@@ -137,8 +149,20 @@ return [
         [
             'title' => 'Finanzas',
             'icon' => 'flaticon-coins',
-            'page' => 'finances',
+            'bullet' => 'line',
             'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Consultar Finanzas',
+                    'bullet' => 'dot',
+                    'page' => 'finances',                    
+                ],
+                [
+                    'title' => 'Crear Cobro',
+                    'bullet' => 'dot',
+                    'page' => 'finances/create',                    
+                ], 
+            ],             
             'role' => ['Administrador', 'Administrador clínica', 'Secretaria','Contadora'],
         ],
         // Config

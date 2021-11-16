@@ -33,16 +33,8 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()->back();
 })->name('change_locale');
 
-/*Route::get('/organizations', [OrganizationController::class, 'index'])
-    ->middleware('auth')
-    ->name('organizations');
-
-Route::post('/organizations', [OrganizationController::class, 'store'])
-    ->middleware('auth');*/
-    Route::resource('/areas', AreaJobController::class)->middleware('auth');
     Route::resource('/users', UserController::class)->middleware('auth');
-    Route::resource('/especialistas', WorkerController::class)->middleware('auth');
-    Route::resource('/organizations', OrganizationController::class)->middleware('auth');    
+
 
 Route::get('clearLocale', function () {
         $lang = session()->get('locale') ?? request()->user()->locale ?? config('app.locale');    
@@ -78,3 +70,6 @@ require __DIR__ . '/areas.php';
 require __DIR__ . '/patients.php';
 require __DIR__ . '/finances.php';
 require __DIR__ . '/users.php';
+require __DIR__ . '/organizations.php';
+require __DIR__ . '/workers.php';
+require __DIR__ . '/areas.php';

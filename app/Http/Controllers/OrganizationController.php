@@ -7,6 +7,7 @@ use App\Models\Region;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreFileRequest;
 
 
 class OrganizationController extends Controller
@@ -108,10 +109,18 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $org
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreFileRequest $request, $id)
     {
-        //
+         //
         $org = $request->except('_method','_token',);
+        $this->validate($request, [
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'email' => 'required|email|unique:org,email,',
+            'user_id' => 'required|unique:user,document,',
+            
+        ]);
         if ($request->hasFile('photo'))
         {
         $org['photo']=$request->file('photo')->store('logo' , 'uploads');            

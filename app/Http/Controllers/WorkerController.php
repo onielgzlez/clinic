@@ -17,6 +17,7 @@ class WorkerController extends Controller
     {
         //
         $users['users'] =User::all(); 
+        /*$users['users'] = User::where('type', 'worker')->firstOrFail();*/ 
         $areas['areas']=AreaJob::all(); 
         
         return view('especialistas.index',$users,$areas); 
