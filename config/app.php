@@ -68,7 +68,10 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Moscow',
+    'date_format' => 'Y-m-d',
+    'time_format' => 'H:i:s',
+    'elapsedTimer' => 30,
 
     /*
     |--------------------------------------------------------------------------

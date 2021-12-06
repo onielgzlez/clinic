@@ -122,7 +122,7 @@
             </div>
 
             <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
-                @include('layouts.partials.extras.dropdown._languages')
+                @include('layouts.partials.extras.dropdown._languages',['active'=>$lang])
             </div>
         </div>
     @endif

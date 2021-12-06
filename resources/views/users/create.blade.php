@@ -160,7 +160,7 @@
                                                             </span>
                                                         </div>
                                                         <input type="text"
-                                                            class="form-control form-control-lg form-control-solid"
+                                                            class="form-control form-control-lg form-control-solid phone"
                                                             value="" placeholder="Teléfono" name="phone">
                                                     </div>
                                                 </div>
@@ -243,22 +243,7 @@
                                             <h5 class="text-dark font-weight-bold mb-10 mt-5">Detalles de cuenta de
                                                 usuario
                                             </h5>
-
-                                            <!--begin::Group-->
-                                            <div class="form-group row">
-                                                <label
-                                                    class="col-form-label col-3 text-lg-right text-left">{{ __('locale.fields.locale') }}</label>
-                                                <div class="col-9">
-                                                    <select class="form-control form-control-lg form-control-solid"
-                                                        name="locale">
-                                                        <option value="">{{ __('locale.Select') }}...</option>
-                                                        @foreach (['en'=>'English','es'=>'Español'] as $key=>$locale)
-                                                        <option value="{{ $key }}">{{ $locale }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <!--end::Group-->
+                                            
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">{{ __('locale.fields.role') }}</label>
@@ -290,7 +275,7 @@
                                             </div>
                                             <!--end::Group-->
                                             <div class="separator separator-dashed my-10"></div>
-                                            <h5 class="text-dark font-weight-bold mb-10">Configuración de cuenta</h5>
+                                            <h5 class="text-dark font-weight-bold mb-10">Configuración de cuenta</h5>                                            
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">{{ __('locale.fields.email') }}
@@ -303,12 +288,54 @@
                                                             </span>
                                                         </div>
                                                         <input type="text" name="email"
-                                                            class="form-control form-control-lg form-control-solid"
+                                                            class="form-control form-control-lg form-control-solid mail"
                                                             value="" placeholder="Email">
                                                     </div>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
+                                                <label
+                                                    class="col-form-label col-3 text-lg-right text-left">{{ __('locale.fields.locale') }}</label>
+                                                <div class="col-9">
+                                                    <select class="form-control form-control-lg form-control-solid"
+                                                        name="locale">
+                                                        <option value="">{{ __('locale.Select') }}...</option>
+                                                        @foreach (['en'=>'English','es'=>'Español'] as $key=>$locale)
+                                                        <option value="{{ $key }}">{{ $locale }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!--end::Group-->
+                                            <!--begin::Form Group-->
+                                                <div class="form-group row">
+                                                    <label class="col-3 col-form-label">{{ __('locale.fields.timezone') }}</label>
+                                                    <div class="col-9">
+                                                        <select class="form-control form-control-lg form-control-solid" name="timezone" id="tz">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            <!--end::Group-->
+                                            <!--begin::Form Group-->
+													<div class="form-group row align-items-center">
+														<label class="col-xl-3 col-lg-3 col-form-label">{{ __('locale.fields.communication') }}</label>
+														<div class="col-lg-9 col-xl-6">
+															<div class="checkbox-inline">
+																<label class="checkbox">
+																<input type="checkbox" checked="checked" name="options[mail]" />
+																<span></span>{{ __('locale.fields.email') }}</label>
+																<label class="checkbox">
+																<input type="checkbox" name="options[sms]"/>
+																<span></span>SMS</label>
+																<label class="checkbox">
+																<input type="checkbox" name="options[whatsapp]"/>
+																<span></span>WhatsApp</label>
+															</div>
+														</div>
+													</div>
+													<!--begin::Form Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">{{ __('locale.fields.password') }}</label>
@@ -452,11 +479,11 @@
 
 {{-- Scripts Section --}}
 @section('scripts')
-<script src="{{ asset('js/pages/custom/user/add-user.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/pages/custom/user/add-user.js') }}?c={{ config('cache.key') }}" type="text/javascript"></script>
 @endsection
 {{-- Styles Section --}}
 @section('styles')
-<link href="{{ asset('css/pages/wizard/wizard-4.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('css/pages/wizard/wizard-4.css') }}?c={{ config('cache.key') }}" rel="stylesheet" type="text/css" />
 <style>
     .workerData{
         visibility: hidden;

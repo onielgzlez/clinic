@@ -30,8 +30,7 @@
 @section('page_toolbar')
 {{-- Page toolbar --}}
 <a class="btn btn-light-primary font-weight-bold btn-sm px-4 font-size-base ml-2"
-    href="{{ route('patients.create') }}">{{
-    __('Nuevo paciente') }}</a>
+    href="{{ route('patients.create') }}">{{ __('locale.New patient') }}</a>
 @endsection
 @section('page_actions')
 {{-- Page toolbar --}}
@@ -47,7 +46,7 @@
             </li>
             <li class="navi-separator mb-3"></li>
             <li class="navi-item">
-                <a href="{{ route('organizations') }}" class="navi-link">
+                <a href="/organizations" class="navi-link">
                     <span class="navi-icon"><i class="flaticon2-drop"></i></span>
                     <span class="navi-text">{{ __('Clínicas') }}</span>
                 </a>

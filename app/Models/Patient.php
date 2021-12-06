@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\HasLocalDates;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Thomasjohnkane\Snooze\Traits\SnoozeNotifiable;
 
 class Patient extends Model
 {
-    use HasFactory;
+    use Notifiable, SnoozeNotifiable, HasFactory, HasLocalDates;
     /**
      * The attributes that are mass assignable.
      *
@@ -35,6 +38,33 @@ class Patient extends Model
         'city_id',
         'email',
     ];
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return array|string
+     */
+    public function routeNotificationForMail($notification = null)
+    {
+        return $this->email;
+    }
+
+    public function routeNotificationForWhatsApp($notification = null)
+    {
+        return trim($this->whatsapp);
+    }
+
+    /**
+     * Route notifications for the Nexmo channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return string
+     */
+    public function routeNotificationForSms($notification = null)
+    {
+        return trim($this->phone);
+    }
 
     /**
      * Get the user's full name.

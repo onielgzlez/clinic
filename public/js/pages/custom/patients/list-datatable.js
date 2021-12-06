@@ -33,7 +33,7 @@ var KTAppsUsersListDatatable = function () {
 			sortable: true,
 
 			pagination: true,
-
+			translate: translateKTD,
 			search: {
 				input: $('#kt_subheader_search_form'),
 				delay: 400,
@@ -163,7 +163,7 @@ var KTAppsUsersListDatatable = function () {
 var _modal = function (a) {
 	Swal.fire({
 		title: translate("locale.Are you sure?"),
-		text: translate("You will not be able to reverse this action!"),
+		text: translate("locale.You will not be able to reverse this action!"),
 		icon: "warning",
 		showCancelButton: true,
 		confirmButtonText: translate("locale.Yes, delete!"),

@@ -195,7 +195,7 @@
                                     <label class="col-form-label col-3 text-lg-right text-left">Área de trabajo</label>
                                     <div class="col-9">
                                         <select class="form-control form-control-lg form-control-solid" name="area_job_id">
-                                            <option value="">Seleccione...</option>
+                                            <option value="">{{ __('locale.Select') }}...</option>
                                             @foreach ($areas as $area)
                                             <option value="{{ $area->id }}" @if ($user->area_job_id == $area->id)
                                                 selected
@@ -210,7 +210,7 @@
                                     <label class="col-form-label col-3 text-lg-right text-left">Ciudad</label>
                                     <div class="col-9">
                                         <select class="form-control form-control-lg form-control-solid" name="city_id">
-                                            <option value="">Seleccione...</option>
+                                            <option value="">{{ __('locale.Select') }}...</option>
                                             @foreach ($cities as $city)
                                             <option value="{{ $city->id }}" @if ($user->city_id == $city->id)
                                                 selected
@@ -225,7 +225,7 @@
                                     <label class="col-form-label col-3 text-lg-right text-left">Clasificación</label>
                                     <div class="col-9">
                                         <select class="form-control form-control-lg form-control-solid" name="classificator_id">
-                                            <option value="">Seleccione...</option>                                           
+                                            <option value="">{{ __('locale.Select') }}...</option>                                           
                                             @foreach ($classifications as $classificator)
                                             <option value="{{ $classificator->id }}" @if ($user->classificator_id == $classificator->id)
                                                 selected
@@ -268,18 +268,19 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" name="email"
-                                                    class="form-control form-control-lg form-control-solid"
+                                                    class="form-control form-control-lg form-control-solid mail"
                                                     value="{{ $user->email }}" placeholder="Email">
                                             </div>
                                         </div>
                                     </div>
                                     <!--end::Group-->
+
                                     <!--begin::Group-->
                                     <div class="form-group row">
-                                        <label class="col-form-label col-3 text-lg-right text-left">Idioma</label>
+                                        <label class="col-form-label col-3 text-lg-right text-left">{{ __('locale.fields.locale') }}</label>
                                         <div class="col-9">
                                             <select class="form-control form-control-lg form-control-solid" name="locale">
-                                                <option value="">Seleccione...</option>
+                                                <option value="">{{ __('locale.Select') }}...</option>
                                                 @foreach (['en'=>'English','es'=>'Español'] as $key=>$locale)
                                                 <option value="{{ $key }}" @if ($user->locale == $key)
                                                     selected
@@ -289,12 +290,47 @@
                                         </div>
                                     </div>
                                     <!--end::Group-->
+                                    <!--begin::Form Group-->
+										<div class="form-group row">
+											<label class="col-3 col-form-label">{{ __('locale.fields.timezone') }}</label>
+											<div class="col-9">
+                                                <input type="hidden" id="tzVal" value="{{ $user->timezone }}">
+												<select class="form-control form-control-lg form-control-solid" name="timezone" id="tz">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <!--end::Group-->
+                                    <!--begin::Form Group-->
+													<div class="form-group row align-items-center">
+														<label class="col-xl-3 col-lg-3 col-form-label">{{ __('locale.fields.communication') }}</label>
+														<div class="col-lg-9 col-xl-6">
+															<div class="checkbox-inline">
+																<label class="checkbox">
+																<input type="checkbox" name="options[mail]" @if (isset($user->options['mail']) && $user->options['mail'])
+                                                                    checked
+                                                                @endif />
+																<span></span>{{ __('locale.fields.email') }}</label>
+																<label class="checkbox">
+																<input type="checkbox" name="options[sms]" @if (isset($user->options['sms']) && $user->options['sms'])
+                                                                checked
+                                                            @endif />
+																<span></span>SMS</label>
+																<label class="checkbox">
+																<input type="checkbox" name="options[whatsapp]" @if (isset($user->options['whatsapp']) && $user->options['whatsapp'])
+                                                                checked
+                                                            @endif />
+																<span></span>WhatsApp</label>
+															</div>
+														</div>
+													</div>
+													<!--begin::Form Group-->
+                                            <!--begin::Group-->
                                     <!--begin::Group-->
                                     <div class="form-group row">
                                         <label class="col-form-label col-3 text-lg-right text-left">Rol</label>
                                         <div class="col-9">
                                             <select class="form-control form-control-lg form-control-solid" name="roles">
-                                                <option value="">Seleccione...</option>
+                                                <option value="">{{ __('locale.Select') }}...</option>
                                                 @foreach ($roles as $role)
                                                 <option value="{{ $role->id }}" @if ($user->roles->contains($role->id))
                                                     selected
@@ -309,7 +345,7 @@
                                         <label class="col-form-label col-3 text-lg-right text-left">Estado</label>
                                         <div class="col-9">
                                             <select class="form-control form-control-lg form-control-solid" name="status">
-                                                <option value="">Seleccione...</option>
+                                                <option value="">{{ __('locale.Select') }}...</option>
                                                 @foreach (['1'=>'Activo','2'=>'Pendiente','3'=>'Suspendido'] as $key=>$status)
                                                 <option value="{{ $key }}" @if ($user->status == $key)
                                                     selected
@@ -461,5 +497,5 @@
 
 {{-- Scripts Section --}}
 @section('scripts')
-<script src="{{ asset('js/pages/custom/user/edit-user.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/pages/custom/user/edit-user.js') }}?c={{ config('cache.key') }}" type="text/javascript"></script>
 @endsection
