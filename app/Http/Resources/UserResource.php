@@ -24,6 +24,8 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'document' => $this->document,
             'type' => $this->type,
+            'specialty' => $this->specialty,
+            'classification' => $this->classification,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'self' => Auth::user()->id == $this->id,

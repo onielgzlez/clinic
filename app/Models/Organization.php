@@ -48,6 +48,11 @@ class Organization extends Model
             ->belongsToMany(Patient::class,'organization_patients');
     }
     
+    public function specialties() {
+        return $this
+            ->belongsToMany(AreaJob::class,'organization_specialties');
+    }
+    
     public function workers() {
         return $this
             ->belongsToMany(User::class,'organization_workers');

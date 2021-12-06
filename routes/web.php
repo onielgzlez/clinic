@@ -1,12 +1,7 @@
 <?php
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AreaJobController;
+
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\OrganizationController;
-use App\Http\Controllers\WorkerController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 //use Inertia\Inertia;
 
@@ -24,6 +19,12 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*Route::get('/mailable', function () {
+    $invoice = App\Models\Appointment::find(4);
+
+    return new App\Mail\AppointmentCloserTime($invoice);
+});*/
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
@@ -69,6 +70,7 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/areas.php';
 require __DIR__ . '/patients.php';
 require __DIR__ . '/finances.php';
+require __DIR__ . '/appointments.php';
 require __DIR__ . '/users.php';
 require __DIR__ . '/organizations.php';
 require __DIR__ . '/workers.php';

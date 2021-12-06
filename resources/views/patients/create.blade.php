@@ -165,7 +165,7 @@
                                                             </span>
                                                         </div>
                                                         <input type="text"
-                                                            class="form-control form-control-lg form-control-solid"
+                                                            class="form-control form-control-lg form-control-solid phone"
                                                             value="" placeholder="{{ __('locale.fields.phone') }}" name="phone">
                                                     </div>
                                                 </div>
@@ -314,7 +314,7 @@
                                                             </span>
                                                         </div>
                                                         <input type="text"
-                                                            class="form-control form-control-lg form-control-solid"
+                                                            class="form-control form-control-lg form-control-solid whatsapp"
                                                             value="" placeholder="{{
                                                                 __('locale.fields.whatsapp') }}" name="whatsapp">
                                                     </div>

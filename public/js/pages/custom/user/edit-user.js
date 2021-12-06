@@ -132,6 +132,19 @@ var KTUserEdit = function () {
   };
 }();
 
+function fillTimezones(tz = null) {
+  axios.get('/api/timezones').then(function (response) {
+    $('#tz').empty();
+    var options = '<option value="">' + translate('locale.Select') + '...</option>';       
+    response.data.forEach(element => {
+      var selected = (tz == element) ? 'selected' : '';
+      options += '<option value="' + element + '" ' + selected + '>' + element + '</option>';
+    });
+    $('#tz').append(options);       
+  })
+}
+
 jQuery(document).ready(function () {
   KTUserEdit.init();
+  fillTimezones($('#tzVal').val());
 });

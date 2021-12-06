@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasLocalDates;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Finance extends Model
 {
-    use HasFactory;
+    use HasFactory, HasLocalDates;
 
     /**
      * The attributes that are mass assignable.
@@ -30,12 +31,12 @@ class Finance extends Model
     {
         return $this->belongsTo(Patient::class);
     }
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);

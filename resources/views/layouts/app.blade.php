@@ -17,13 +17,13 @@
 
     {{-- Global Theme Styles (used by all pages) --}}
     @foreach(config('layout.resources.css') as $style)
-    <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($style)) : asset($style) }}" rel="stylesheet"
+    <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($style)) : asset($style) }}?c={{ config('cache.key') }}" rel="stylesheet"
         type="text/css" />
     @endforeach
 
     {{-- Layout Themes (used by all pages) --}}
     @foreach (Metronic::initThemes() as $theme)
-    <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($theme)) : asset($theme) }}" rel="stylesheet"
+    <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($theme)) : asset($theme) }}?c={{ config('cache.key') }}" rel="stylesheet"
         type="text/css" />
     @endforeach
 
@@ -43,6 +43,7 @@
     </div>
     <script>
         var HOST_URL = "/";
+        var locale = "{!! app()->getLocale() !!}";
     </script>
 
     {{-- Global Config (global config for global JS scripts) --}}
@@ -52,11 +53,13 @@
     
     {{-- Global Theme JS Bundle (used by all pages) --}}
     @foreach(config('layout.resources.js') as $script)
-    <script src="{{ asset($script) }}" type="text/javascript"></script>
+    <script src="{{ asset($script) }}?c={{ config('cache.key') }}" type="text/javascript"></script>
     @endforeach
-    <script src="{{ route('translations') }}"></script>
+    <script src="{{ route('translations') }}" type="text/javascript"></script>    
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}?c={{ config('cache.key') }}" defer></script>
+    <script src="{{ asset('js/t.js') }}?c={{ config('cache.key') }}" defer></script>
+    <script src="{{ asset('js/mask.js') }}?c={{ config('cache.key') }}"></script>
     {{-- Includable JS --}}
     @yield('scripts')
 </body>

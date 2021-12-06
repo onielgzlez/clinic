@@ -27,4 +27,9 @@ class AreaJob extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function organizations() {
+        return $this
+            ->belongsToMany(Organization::class,'organization_specialties');
+    }
 }

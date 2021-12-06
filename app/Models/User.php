@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\HasLocalDates;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Thomasjohnkane\Snooze\Traits\SnoozeNotifiable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Notifiable, SnoozeNotifiable,HasApiTokens, HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -39,6 +42,8 @@ class User extends Authenticatable
         'mobileTheme',
         'desktopTheme',
         'locale',
+        'timezone',
+        'options',
     ];
 
     /**
@@ -49,7 +54,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-    ];
+    ];       
 
     /**
      * The attributes that should be cast.
@@ -58,7 +63,35 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'options' => AsArrayObject::class,
     ];
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return array|string
+     */
+    public function routeNotificationForMail($notification = null)
+    {
+        return $this->email;
+    }
+
+    public function routeNotificationForWhatsApp($notification = null)
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Route notifications for the Nexmo channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return string
+     */
+    public function routeNotificationForSms($notification = null)
+    {
+        return $this->phone;
+    }
 
     /**
      * Get the user's full name.
@@ -133,7 +166,7 @@ class User extends Authenticatable
     }
 
     public function hasAnyRole($roles)
-    {        
+    {
         if (is_array($roles)) {
             foreach ($roles as $role) {
                 if ($this->hasRole($role)) {
@@ -173,9 +206,14 @@ class User extends Authenticatable
     /**
      * Get the area job that owns the user.
      */
-    public function area()
+    public function area_job()
     {
         return $this->belongsTo(AreaJob::class);
+    }
+
+    public function getSpecialtyAttribute()
+    {
+        return $this->area_job->name ?? '';
     }
 
     /**
@@ -184,5 +222,10 @@ class User extends Authenticatable
     public function classificator()
     {
         return $this->belongsTo(Classificator::class);
+    }
+
+    public function getClassificationAttribute()
+    {
+        return $this->classificator->name ?? '';
     }
 }

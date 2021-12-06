@@ -37,6 +37,8 @@ class CreateUsersTable extends Migration
             $table->string('locale')->nullable();
             $table->integer('status');
             $table->string('type');
+            $table->string('timezone')->nullable();
+            $table->json('options')->nullable();
             $table->foreignIdFor(City::class)->nullable();
             $table->foreignIdFor(AreaJob::class)->nullable();
             $table->foreignIdFor(Classificator::class)->nullable();

@@ -90,7 +90,7 @@ var KTUserEdit = function () {
 function ok(el) {
   if (el.value == 'income') {
     $('.income').removeClass('d-none');
-    if ($('#organization_id').val()) populateData($('#organization_id').val(),$('#patient_id').val())
+    if ($('#organization_id').val()) populateData($('#organization_id').val(), $('#patient_id').val())
   } else {
     $('.income').addClass('d-none');
   }
@@ -98,7 +98,7 @@ function ok(el) {
 
 $('#organization_id').change(function () {
   if ($('#financeType').val() == 'income' && this.value) {
-    populateData(this.value,$('#patient_id').val())
+    populateData(this.value, $('#patient_id').val())
   }
 });
 
@@ -109,7 +109,7 @@ function populateData(id, val = null) {
     var options = '<option value="">' + translate('locale.Select') + '...</option>';
     patients.forEach(function (e, i) {
       var selected = (val == e.id) ? 'selected' : '';
-      options += '<option value="' + e.id + '" ' + e.id + '>' + e.name + '</option>';
+      options += '<option value="' + e.id + '" ' + selected + '>' + e.name + '</option>';
     });
     $('#patient_id').append(options);
   })

@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
                 'role_id' => rand(2,4),
             ]);
 
-            DB::table('organizations')->insert([
+          $org = DB::table('organizations')->insertGetId([
                 'name' => Str::random(10),
                 'slug' => Str::random(10),
                 'email' => Str::random(10).'@gmail.com',
@@ -85,6 +85,11 @@ class UserSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+            $user = DB::table('users')->find($userId1);
+            DB::table('organization_specialties')->insert([
+                'organization_id' => $org,
+                'area_job_id' => $user->area_job_id,
+            ]);            
         }
     }
 }

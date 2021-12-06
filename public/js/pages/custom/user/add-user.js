@@ -216,7 +216,19 @@ $('#userType').on('change', function () {
   }
 })
 
+function fillTimezones() {
+  axios.get('/api/timezones').then(function (response) {
+    $('#tz').empty();
+    var options = '<option value="">' + translate('locale.Select') + '...</option>';       
+    response.data.forEach(element => {
+      options += '<option value="' + element + '" >' + element + '</option>';
+    });
+    $('#tz').append(options);       
+  })
+}
+
 jQuery(document).ready(function () {
   KTAddUser.init();
-  $('#userType').trigger('change');
+  $('#userType').trigger('change');  
+  fillTimezones();
 });
