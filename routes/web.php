@@ -74,4 +74,3 @@ require __DIR__ . '/appointments.php';
 require __DIR__ . '/users.php';
 require __DIR__ . '/organizations.php';
 require __DIR__ . '/workers.php';
-require __DIR__ . '/areas.php';
