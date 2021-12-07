@@ -57,7 +57,7 @@ class Menu
                     }
                 }
     
-                if (@$item['redirect'] === true) {
+                if (isset($item['redirect']) && $item['redirect']=== true) {
                     $item_attr .= ' data-menu-redirect="1"';
                 }
     
@@ -96,7 +96,7 @@ class Menu
                 }
     
                 // Menu arrow
-                if (@$item['here'] === true) {
+                if (isset($item['here']) && $item['here'] === true) {
                     echo '<span class="menu-item-here"></span>';
                 }
     
@@ -143,7 +143,7 @@ class Menu
                     } elseif (isset($item['root']) == false && config('layout.menu.aside.submenu.arrow') == 'plus-minus-circle') {
                         echo '<i class="menu-arrow menu-arrow-pm-circle"><span><span></span></span></i>';
                     } else {
-                        if (@$item['arrow'] !== false && config('layout.aside.menu.root-arrow') !== false) {
+                        if (isset($item['arrow']) && $item['arrow']!== false && config('layout.aside.menu.root-arrow') !== false) {
                             echo '<i class="menu-arrow"></i>';
                         }
                     }
@@ -222,13 +222,13 @@ class Menu
             if (isset($item['submenu']) && self::isActiveHorMenuItem($item, request()->path())) {
                 $item_class .= ' menu-item-open menu-item-here'; // m-menu__item--active
 
-                if (@$item['submenu']['type'] == 'tabs') {
+                if (isset($item['submenu']['type']) && $item['submenu']['type']== 'tabs') {
                     $item_class .= ' menu-item-active-tab ';
                 }
             } elseif (self::isActiveHorMenuItem($item, request()->path())) {
                 $item_class .= ' menu-item-active ';
 
-                if (@$item['submenu']['type'] == 'tabs') {
+                if (isset($item['submenu']['type']) && $item['submenu']['type'] == 'tabs') {
                     $item_class .= ' menu-item-active-tab ';
                 }
             }
@@ -238,14 +238,14 @@ class Menu
 
                 if (isset($item['toggle']) && $item['toggle'] == 'click') {
                     $item_attr .= ' data-menu-toggle="click"';
-                } elseif (@$item['submenu']['type'] == 'tabs') {
+                } elseif (isset($item['submenu']['type']) && $item['submenu']['type'] == 'tabs') {
                     $item_attr .= ' data-menu-toggle="tab"';
                 } else {
                     $item_attr .= ' data-menu-toggle="hover"';
                 }
             }
 
-            if (@$item['redirect'] === true) {
+            if (isset($item['redirect']) && $item['redirect'] === true) {
                 $item_attr .= ' data-menu-redirect="1"';
             }
 
@@ -276,7 +276,7 @@ class Menu
                 $item_class .= ' ' . $item['custom-class'];
             }
 
-            if (@$item['icon-only'] == true) {
+            if (isset($item['icon-only']) && $item['icon-only'] == true) {
                 $item_class .= ' menu-item-icon-only';
             }
 
@@ -307,7 +307,7 @@ class Menu
                 }
 
                 // put root level arrow
-                if (@$item['here'] === true) {
+                if (isset($item['here']) && $item['here'] === true) {
                     echo '<span class="menu-item-here"></span>';
                 }
 
@@ -444,7 +444,7 @@ class Menu
     // Check for active Vertical Menu item
     public static function isActiveVerMenuItem($item, $page, $rec = 0)
     {
-        if (@$item['redirect'] === true) {
+        if (isset($item['redirect']) && $item['redirect'] === true) {
             return false;
         }
 
@@ -468,7 +468,7 @@ class Menu
     // Check for active Horizontal Menu item
     public static function isActiveHorMenuItem($item, $page, $rec = 0)
     {
-        if (@$item['redirect'] === true) {
+        if (isset($item['redirect']) && $item['redirect'] === true) {
             return false;
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AreaJobController;
+//use App\Http\Controllers\AreaJobController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('areas')->name('areas.')->middleware(['auth', 'role:Administrador,Administrador clínica,Secretaria'])->group(function () {
