@@ -62,21 +62,21 @@ class UserNotification extends Notification
         return false;
     }
 
-    public function toEmail($notifiable)
+    /*public function toEmail($notifiable)
     {
         if ($this->isActiveDriver($notifiable, 'mymail')) {
             $message = new AppointmentCreated($this->appointment);
             return $message;
         }
         return false;
-    }
+    }*/
 
     public function toWhatsApp($notifiable)
     {
         if ($this->isActiveDriver($notifiable, 'whatsapp')) {
             $orderUrl = url("/appointments/{$this->appointment->id}");         
             return (new WhatsAppMessage)
-                ->content("Has agendado una consulta al paciente " . $this->appointment->patient->fullName . " en la fecha" . $this->appointment->init . ". Detalles: $orderUrl");
+                ->content("Has agendado una consulta al paciente " . $this->appointment->patient->fullName . " en la fecha " . $this->appointment->init);
         }
         return false;
     }
@@ -88,15 +88,15 @@ class UserNotification extends Notification
      * @param  string  $channel
      * @return bool
      */
-    public function shouldSend($notifiable, $channel)
+    /*public function shouldSend($notifiable, $channel)
     {
         return $this->appointment->status < 4;
-    }
+    }*/
 
-    public function shouldInterrupt($notifiable)
+   /* public function shouldInterrupt($notifiable)
     {
-        return $notifiable->isInactive() || $this->appointment->status > 3;
-    }
+        return $this->appointment->status > 3;
+    }/*
 
     /**
      * Get the Vonage / SMS representation of the notification.
@@ -108,7 +108,7 @@ class UserNotification extends Notification
     {
         $orderUrl = url("/appointments/{$this->appointment->id}");
         if ($this->isActiveDriver($notifiable, 'sms'))
-            return (new SmsMessage)->content("Has agendado una consulta al paciente " . $this->appointment->patient->fullName . " en la fecha" . $this->appointment->init . ". Detalles: $orderUrl");
+            return (new SmsMessage)->content("Has agendado una consulta al paciente " . $this->appointment->patient->fullName . " en la fecha" . $this->appointment->init);
         return false;
     }
 

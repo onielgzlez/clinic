@@ -81,7 +81,7 @@
                                 <h1
                                     style="margin-top:0;margin-bottom:16px;font-size:26px;line-height:32px;font-weight:bold;letter-spacing:-0.02em;">
                                     Se le ha actualizado su cita!</h1>
-                                <p style="margin:0;">{{ $appointment->user->fullName }} le ha agendado una cita en la
+                                <p style="margin:0;">{{ $appointment->user->fullName }} le ha actualizado su cita en la
                                     clínica {{ $appointment->organization->name }}, con fecha {{ $appointment->init }}.</p>
                             </td>
                         </tr>
