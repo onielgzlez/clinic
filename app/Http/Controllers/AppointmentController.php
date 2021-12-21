@@ -127,7 +127,7 @@ class AppointmentController extends Controller
         $dataAppointment = Arr::except($input, 'patient');
         $dataPatient = Arr::only($input, 'patient');
 
-        $patient = Patient::firstOrNew(
+        $patient = Patient::firstOrCreate(
             ['document' => $dataPatient['patient']['document']],
             $dataPatient['patient']
         );

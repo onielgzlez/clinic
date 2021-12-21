@@ -231,7 +231,7 @@
                                 onclick="event.preventDefault();if(confirm('Seguro de eliminar')) document.getElementById('trab{{ $area->id }}').submit()">
                                 {{ Metronic::getSVG('media/svg/icons/General/Trash.svg', 'svg-icon-md svg-icon-primary') }}
                             </a>
-                            <form style="display: none;" id="trab{{ $area->id }}" method="post"
+                            <form style="display: none;" id="trab{{ $area->id }}" method="POST"
                                 action="{{ route('areas.destroy', $area->id) }}">
                                 {{ method_field('DELETE') }}
                                 @csrf
