@@ -337,5 +337,5 @@
 
 {{-- Scripts Section --}}
 @section('scripts')
-<!--<script src="{{ asset('js/pages/custom/areas/list-datatable.js') }}" type="text/javascript"></script>   ----->
+<!---<script src="{{ asset('js/pages/custom/areas/list-datatable.js') }}" type="text/javascript"></script> 
 @endsection

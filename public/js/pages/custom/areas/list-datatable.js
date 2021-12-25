@@ -1,85 +1,84 @@
 "use strict";
 // Class definition
 
-var KTAppsAreasListDatatable = function () {
-	// Private functions
+var KTAppsAreasListDatatable = function() {
+    // Private functions
 
-	var _areas = function () {
+    var _areas = function() {
 
-		var datatable = $('#kt_datatable').KTDatatable({
-			// datasource definition
-			data: {
-				type: 'remote',
-				source: {
-					read: {
-						url: '/areas',
-						method: 'GET',
-						contentType: 'application/json',
-					},
-					params: {
-						'page': 1
-					}
-				},
-				pageSize: 10, // display 20 records per page
-				serverPaging: true,
-				serverFiltering: true,
-				serverSorting: true,
-			},
+        var datatable = $('#kt_datatable').KTDatatable({
+            // datasource definition
+            data: {
+                type: 'remote',
+                source: {
+                    read: {
+                        url: '/areas',
+                        method: 'GET',
+                        contentType: 'application/json',
+                    },
+                    params: {
+                        'page': 1
+                    }
+                },
+                pageSize: 10, // display 20 records per page
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true,
+            },
 
-			// layout definition
-			layout: {
-				scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
-				footer: false, // display/hide footer
-			},
+            // layout definition
+            layout: {
+                scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
+                footer: false, // display/hide footer
+            },
 
-			// column sorting
-			sortable: true,
+            // column sorting
+            sortable: true,
 
-			pagination: true,
-			translate: translateKTD,
-			search: {
-				input: $('#kt_subheader_search_form'),
-				delay: 400,
-				key: 'generalSearch'
-			},
+            pagination: true,
+            translate: translateKTD,
+            search: {
+                input: $('#kt_subheader_search_form'),
+                delay: 400,
+                key: 'generalSearch'
+            },
 
-			// columns definition
-			columns: [
-				{
-					field: 'id',
-					title: '#',
-					sortable: 'asc',
-					width: 40,
-					type: 'number',
-					selector: false,
-					textAlign: 'left',
-					template: function (data) {
-						return '<span class="font-weight-bolder">' + data.id + '</span>';
-					}
-				}, {
-					field: 'name',
-					title: translate('locale.fields.name'),
-					sortable: false,
-					width: 300,
-					template: function (data) {
-						var output = '<div class="d-flex align-items-center">\
+            // columns definition
+            columns: [{
+                field: 'name',
+                title: 'Especialidad',
+                sortable: 'asc',
+                width: 15,
+                type: 'number',
+                selector: false,
+                textAlign: 'left',
+                template: function(data) {
+                    return '<span class="font-weight-bolder">' + data.name + '</span>';
+                }
+            }, {
+                field: 'description',
+                title: 'Descripcion',
+                sortable: false,
+                width: 30,
+                template: function(data) {
+                    var output = '<div class="d-flex align-items-center">\
             <div class="ml-4">\
-              <div class="text-dark-75 font-weight-bolder font-size-lg mb-0">' + data.name + '</div>\
+              <div class="text-dark-75 font-weight-bolder font-size-lg mb-0">' + data.description + '</div>\
             </div>\
           </div>';
 
-						return output;
-					}
-				}, {
-					field: 'actions',
-					title: translate('locale.Actions'),
-					sortable: false,
-					width: 130,
-					overflow: 'visible',
-					autoHide: false,
-					template: function (row) {
-						var link = '<form method="POST" action="' + row.actions.delete + '" style="display: inline;">\
-						<input type="hidden" name="_token" value="'+ row.actions.crsf + '">\
+                    return output;
+                }
+            }, {
+                field: 'actions',
+                title: 'Acciones',
+                sortable: false,
+                width: 130,
+                overflow: 'visible',
+                autoHide: false,
+                template: function(row) {
+                    var link = '<form method="POST" action="' + row.actions.delete + '" style="display: inline;">\
+						<input type="hidden" name="_token" value="' + row.actions.crsf + '">\
 						<a href="javascript:;" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon" title="Delete" onclick="event.preventDefault();_modal(this);">\
                                 <span class="svg-icon svg-icon-md">\
                                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
@@ -94,7 +93,7 @@ var KTAppsAreasListDatatable = function () {
 										  <form>\
             ';
 
-						return '\ <a href="' + row.actions.edit + '" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2" title="Edit details">\
+                    return '\ <a href="' + row.actions.edit + '" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2" title="Edit details">\
 	                            <span class="svg-icon svg-icon-md">\
 									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
 										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -104,47 +103,47 @@ var KTAppsAreasListDatatable = function () {
 										</g>\
 									</svg>\
 	                            </span>\
-	                        </a>'+ (!row.self ? link : '')
+	                        </a>' + (!row.self ? link : '')
 
-					},
-				}],
-		});
+                },
+            }],
+        });
 
-		$('#kt_datatable_search_status').on('change', function () {
-			datatable.search($(this).val().toLowerCase(), 'status');
-		});
+        $('#kt_datatable_search_status').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'status');
+        });
 
-		$('#kt_datatable_search_type').on('change', function () {
-			datatable.search($(this).val().toLowerCase(), 'type');
-		});
+        $('#kt_datatable_search_type').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'type');
+        });
 
-		$('#kt_datatable_search_status, #kt_datatable_search_type').selectpicker();
-	};
+        $('#kt_datatable_search_status, #kt_datatable_search_type').selectpicker();
+    };
 
-	return {
-		// public functions
-		init: function () {
-			_areas();
-		},
-	};
+    return {
+        // public functions
+        init: function() {
+            _areas();
+        },
+    };
 }();
 
-var _modal = function (a) {
-	Swal.fire({
-		title: translate("locale.Are you sure?"),
-		text: translate("locale.You will not be able to reverse this action!"),
-		icon: "warning",
-		showCancelButton: true,
-		confirmButtonText: translate("locale.Yes, delete!"),
+var _modal = function(a) {
+    Swal.fire({
+        title: translate("locale.Are you sure?"),
+        text: translate("locale.You will not be able to reverse this action!"),
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: translate("locale.Yes, delete!"),
         cancelButtonText: translate("locale.No, cancel"),
-		reverseButtons: true
-	}).then(function (result) {
-		if (result.value) {
-			$(a).closest('form').submit();
-		}
-	});
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.value) {
+            $(a).closest('form').submit();
+        }
+    });
 };
 
-jQuery(document).ready(function () {
-	KTAppsAreasListDatatable.init();
+jQuery(document).ready(function() {
+    KTAppsAreasListDatatable.init();
 });

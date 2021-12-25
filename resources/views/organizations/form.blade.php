@@ -92,7 +92,7 @@
                                                         name="user_id">
                                                         <option value="">Seleccione...</option>
                                                         @foreach ($user as $us)
-                                                        <option value="{{$us->id}}"@if ($org->city_id == $us->id) selected @endif x>{{ $us->fullname }}</option>
+                                                        <option value="{{$us->id}}"@if ($org->user_id == $us->id) selected @endif>{{ $us->fullname }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

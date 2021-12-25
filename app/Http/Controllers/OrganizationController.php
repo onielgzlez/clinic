@@ -113,14 +113,14 @@ class OrganizationController extends Controller
     {
          //
         $org = $request->except('_method','_token',);
-        $this->validate($request, [
+        /*$this->validate($request, [
             'name' => 'required',
             'phone' => 'required',
             'address' => 'required',
             'email' => 'required|email|unique:org,email,',
             'user_id' => 'required|unique:user,document,',
             
-        ]);
+        ]);*/
         if ($request->hasFile('photo'))
         {
         $org['photo']=$request->file('photo')->store('logo' , 'uploads');            
