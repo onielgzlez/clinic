@@ -130,16 +130,17 @@
                 </thead>
                 <tbody>
                  @foreach ($users as $user) 
-                <tr>                    
+                <tr> 
+                    @if ($user->type == 'worker')                   
                     <td>{{$user->FullName}}</td>
                     <td>{{$user->document}}</td>
                     <td align="left">
-                        <select style="font-size: 13px;" class="form-control form-control-lg form-control-solid" name="area_job_id">
+                        <select style="font-size: 13px;" onchange="alert('No ha sido programado este cambio');"  class="form-control form-control-lg form-control-solid" name="area_job_id">
                             <option value="">No Asignada...</option>
                             @foreach ($areas as $area)
                             <option value="{{ $area->id }}" @if ($user->area_job_id == $area->id)
                                 selected
-                            @endif>{{ $area->name }}</option>
+                            @endif >{{ $area->name }}</option>
                             @endforeach
                         </select>                        
                     </td> 
@@ -147,7 +148,8 @@
                         <span>{{$user->phone}}</span>
                         <span>{{$user->email}}</span>                        
                     </td>                                                         
-                    <td align="right">{{$user->status}}</td>                    
+                    <td align="right">{{$user->status}}</td>   
+                    @endif                 
                 </tr>   
                 @endforeach            
                 </tbody>                
@@ -159,6 +161,7 @@
 
 {{-- Scripts Section --}}
 @section('scripts')
-    <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>     
     <script src="{{ asset('js/pages/custom/especialistas/especialistas-table.js') }}" type="text/javascript"></script>
+   
 @endsection

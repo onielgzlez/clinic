@@ -93,7 +93,7 @@
                                     {{ Metronic::getSVG('media/svg/icons/Communication/Write.svg', 'svg-icon-md svg-icon-primary') }}
                                 </a>
                                     <a href="javascript: void(0)" class="btn btn-icon btn-light btn-sm"
-                                    onclick="event.preventDefault();if(confirm('Seguro de eliminar')) document.getElementById('trab{{ $rg->id }}').submit()">
+                                    onclick="event.preventDefault();_modal(this)">
                                     {{ Metronic::getSVG('media/svg/icons/General/Trash.svg', 'svg-icon-md svg-icon-primary') }}
                                 </a>
                                 <form style="display: none;" id="trab{{ $rg->id }}" method="post"
@@ -128,6 +128,24 @@
     <script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","738802870177541");fbq("track","PageView");</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=738802870177541&amp;ev=PageView&amp;noscript=1"></noscript>
 <script type="text/javascript" id="">try{(function(){var a=google_tag_manager["GTM-5FS8GGP"].macro(8);a="undefined"==typeof a?google_tag_manager["GTM-5FS8GGP"].macro(9):a;var b=new Date;b.setTime(b.getTime()+18E5);var c="gtm-session-start";b=b.toGMTString();var d="/",e=".keenthemes.com";document.cookie=c+"\x3d"+a+"; Expires\x3d"+b+"; domain\x3d"+e+"; Path\x3d"+d})()}catch(a){};</script><script type="text/javascript" id="">(function(){var a=google_tag_manager["GTM-5FS8GGP"].macro(10)-0+1,b=".keenthemes.com";document.cookie="damlPageCount\x3d"+a+";domain\x3d"+b+";path\x3d/;"})();</script>
-		<!--end::Main-->
+<script type="text/javascript">
+    var _modal = function (a) {
+        Swal.fire({
+            title: translate("locale.Are you sure?"),
+            text: translate("locale.You will not be able to reverse this action!"),
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: translate("locale.Yes, delete!"),
+            cancelButtonText: translate("locale.No, cancel"),
+            reverseButtons: true
+        }).then(function (result) {
+            if (result.value) {
+                $(a).closest('form').submit();
+                document.getElementById('trab{{ $rg->id }}').submit()
+            }
+        });
+    };
+    
+    </script>
 @endsection
 

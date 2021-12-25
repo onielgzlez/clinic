@@ -228,7 +228,9 @@
                                 </div>
                                 <!--------------------------------------- End Modal------------------------------------------------------------->
                             <a href="javascript: void(0)" class="btn btn-icon btn-light btn-sm"
-                                onclick="event.preventDefault();if(confirm('Seguro de eliminar')) document.getElementById('trab{{ $area->id }}').submit()">
+                                onclick="event.preventDefault();_modal(this)
+                                
+                                ">
                                 {{ Metronic::getSVG('media/svg/icons/General/Trash.svg', 'svg-icon-md svg-icon-primary') }}
                             </a>
                             <form style="display: none;" id="trab{{ $area->id }}" method="POST"
@@ -337,5 +339,26 @@
 
 {{-- Scripts Section --}}
 @section('scripts')
-<!---<script src="{{ asset('js/pages/custom/areas/list-datatable.js') }}" type="text/javascript"></script> 
+<!---<script src="{{ asset('js/pages/custom/areas/list-datatable.js') }}" type="text/javascript"></script> ---> 
+<script type="text/javascript">
+var _modal = function (a) {
+	Swal.fire({
+		title: translate("locale.Are you sure?"),
+		text: translate("locale.You will not be able to reverse this action!"),
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonText: translate("locale.Yes, delete!"),
+        cancelButtonText: translate("locale.No, cancel"),
+		reverseButtons: true
+	}).then(function (result) {
+		if (result.value) {
+			$(a).closest('form').submit();
+            document.getElementById('trab{{ $area->id }}').submit()
+		}
+	});
+};
+
+</script> 
+
+
 @endsection

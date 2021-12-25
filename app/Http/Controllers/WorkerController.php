@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\AreaJob;
 
+use function PHPSTORM_META\type;
+
 class WorkerController extends Controller
 {
     /**
@@ -14,10 +16,8 @@ class WorkerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-        $users['users'] =User::all(); 
-        /*$users['users'] = User::where('type', 'worker')->firstOrFail();*/ 
+    {          
+        $users['users'] = User::all(); 
         $areas['areas']=AreaJob::all(); 
         
         return view('especialistas.index',$users,$areas); 
@@ -42,7 +42,7 @@ class WorkerController extends Controller
     public function store(Request $request)
     {
         $users['users'] =User::all(); 
-        $areas['areas']=AreaJob::all(); 
+        $areas['areas']=AreaJob::all();
         return view('especialistas.index',$users,$areas); 
     }
 
@@ -77,7 +77,9 @@ class WorkerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $users=request()->all();
+        $tipo='worker';
+        User::where('id','=',$tipo)->update($users);    
     }
 
     /**
