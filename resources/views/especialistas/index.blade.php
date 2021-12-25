@@ -130,8 +130,7 @@
                 </thead>
                 <tbody>
                  @foreach ($users as $user) 
-                <tr> 
-                    @if ($user->type == 'worker')                   
+                <tr>               
                     <td>{{$user->FullName}}</td>
                     <td>{{$user->document}}</td>
                     <td align="left">
@@ -148,8 +147,7 @@
                         <span>{{$user->phone}}</span>
                         <span>{{$user->email}}</span>                        
                     </td>                                                         
-                    <td align="right">{{$user->status}}</td>   
-                    @endif                 
+                    <td align="right">{{$user->status}}</td>                                  
                 </tr>   
                 @endforeach            
                 </tbody>                

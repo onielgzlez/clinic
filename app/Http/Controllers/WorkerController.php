@@ -16,11 +16,12 @@ class WorkerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {          
-        $users['users'] = User::all(); 
-        $areas['areas']=AreaJob::all(); 
+    {   
+        $tipo = 'worker';
+        $users = User::where('type','=', $tipo)->get(); 
+        $areas = AreaJob::all(); 
         
-        return view('especialistas.index',$users,$areas); 
+        return view('especialistas.index', compact('users','areas')); 
     }
 
     /**
